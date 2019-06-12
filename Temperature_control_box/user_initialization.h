@@ -26,43 +26,56 @@
 
 
 //引脚定义
-#define LED1        PC3     //LED1
-#define LED2        PC2     //LED2
-#define LED3        PC1     //LED3
-#define LED4        PC0     //LED4
-#define K1          PA0     //K1按键
-#define K2          PA1     //K1按键
-#define KCZJ1       PB12    //继电器1
-#define KCZJ2       PB13    //继电器2
-#define A01         PA6     //模拟输出1
-#define A02         PA7     //模拟输出2     
-#define PWR         PA4     //12V升压模块供电
-#define DE          PA5     //485模块供电
-#define LORA_PWR    PB4     //LORA模块供电
-#define LORA_TX     PB11    //LORA TX串口输出
-#define LORA_RX     PB10    //LORX RX串口输入
-#define AT_CMD      PB3     //高电平时为AT 模式，低电平为透传模式
-#define WAKE_UP     PD2     //LORA模块唤醒引脚
-#define RESETN      PC12    //LORA模块复位引脚
-#define VIN1        PC4     //模拟输入电压1
-#define VIN2        PC5     //模拟输入电压2
-#define EX_POW		PB0		//
+#define LED3		PC0		//LED3
+#define LED4		PC1		//LED4
+#define LED1		PC2		//LED1
+#define LED2		PC3		//LED2
+
+#define PWR_EN485	PC7		//485外设电源
+#define TX_485		PA2		//485TX
+#define RX_485		PA3		//485RX
+
+#define K1			PA4		//按键1
+#define K2			PA5		//按键2
+
+#define I3			PA6		//
+#define I2			PA7		//
+#define I1			PC4		//
+
 #define BAT_V		PB1		//
-#define	BOOT1		PB2		//
-#define	SWCLK		PA1		//
-#define EEPROM_SDA  PB7     //EEPROM_SDA
-#define EEPROM_SCL  PB6     //EEPROM_SCL
-#define MCU_RX      PA10    //MCU_RX
-#define MCU_TX      PA9     //MCU_TX
-#define DE_485      PA5     //485DE
-#define RX_485      PA3     //485RX
-#define TX_485      PA2     //485TX
-#define USBDM		PA11	//usbdm
-#define USBDP		PA12	//usbdp
-#define SWDIO		PA13	//swdio
-#define	RESETn		PC12	//reset_n
-#define Wake_Up		PD2		//wake_up
-#define	WP			PB5		//wp
+#define BOOT1		PB2		//
+
+#define GPRS_PWR_EN	PB4		//
+#define GPRS_PWRKEY	PC11	//
+#define GPRS_RST	PC10	//
+#define GPRS_TX		PB10	//		
+#define GPRS_RX		PB11	//
+
+#define SWDIO		PA13	//
+
+#define USBEN		PC9		//
+#define USBDP		PA12	//
+#define USBDM		PA11	//
+
+#define LORA_AUX	PA0		//
+#define LORA_PWR	PB8		//
+#define LORA_TX		PA10	//LORATX
+#define LORA_RX		PA9		//LORARX
+#define LORA_M1		PB3		//
+#define LORA_M0		PD2		//
+
+#define EX_POW		PC8		//
+#define MOSI		PB15	//
+#define MISO		PA14	//	
+#define SCK			PB13	//
+#define CS			PB12	//
+
+#define RTC_SDA		PB7		//
+#define RTC_SCL		PB6		//
+#define WP			PB5		//
+#define ANT_PWR_EN	PC12	//
+#define NETLIGHT	PA15	//
+#define SWCLK		PA14	//
 
 //全局函数声明
 void Initialization(void);//初始化函数
