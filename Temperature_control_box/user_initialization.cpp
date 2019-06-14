@@ -32,34 +32,42 @@ void Initialization()//初始化函数
 {
     //初始化引脚
     afio_cfg_debug_ports(AFIO_DEBUG_SW_ONLY);//因为引脚复用
-    pinMode(RESETN,OUTPUT);//复位电路，给高电平进行复位
-    pinMode(KCZJ1,OUTPUT);//继电器
-    pinMode(KCZJ2,OUTPUT);
-    pinMode(PWR,OUTPUT);//因为取消掉了MOS管，直接跳线，导致PWR无法使用
+	pinMode(USBEN, OUTPUT);//USB使能
+	//pinMode(PWR_EN485, OUTPUT);//485模块使能
+	pinMode(V12_PWR,OUTPUT);
+    //pinMode(RESETN,OUTPUT);//复位电路，给高电平进行复位
+    //pinMode(KCZJ1,OUTPUT);//继电器
+    //pinMode(KCZJ2,OUTPUT);
+    //pinMode(PWR,OUTPUT);//因为取消掉了MOS管，直接跳线，导致PWR无法使用
     pinMode(LED1,OUTPUT);
     pinMode(LED2,OUTPUT);
     pinMode(LED3,OUTPUT);
     pinMode(LED4,OUTPUT);
-    pinMode(A01,OUTPUT);//缺少IC1 TLV2472芯片，该模块无法使用
-    pinMode(A02,OUTPUT);
+    //pinMode(A01,OUTPUT);//缺少IC1 TLV2472芯片，该模块无法使用
+    //pinMode(A02,OUTPUT);
     pinMode(K1,INPUT);//按键
     pinMode(K2,INPUT);   
     pinMode(LORA_PWR,OUTPUT);//LORA
-    pinMode(RESETN,OUTPUT);
-    pinMode(AT_CMD,OUTPUT);
-    pinMode(WAKE_UP,OUTPUT);
-	pinMode(VIN1,INPUT);//模拟输入
-	pinMode(VIN2,INPUT);
-	pinMode(DE_485, OUTPUT);//485使能引脚，低电平发送，高电平接收
+ //   pinMode(AT_CMD,OUTPUT);
+ //   pinMode(WAKE_UP,OUTPUT);
+	//pinMode(VIN1,INPUT);//模拟输入
+	//pinMode(VIN2,INPUT);
+	//pinMode(DE_485, OUTPUT);//485使能引脚，低电平发送，高电平接收
     
     //初始化串口
-    Serial.begin(9600); 
-	Serial2.begin(19200);
-    Serial3.begin(9600);
+	digitalWrite(USBEN, LOW);//USB使能引脚
+    Serial.begin(9600);		//USB的串口
 
-    //继电器初始化//
-    digitalWrite(KCZJ1,HIGH);
-    digitalWrite(KCZJ2,HIGH);
+	//Serial1.begin(9600);	//LORA的串口
+
+	//digitalWrite(PWR_EN485,HIGH);//485使能引脚
+	Serial2.begin(9600);	//485的串口
+
+    //Serial3.begin(9600);	//GPRS的串口
+
+    ////继电器初始化//
+    //digitalWrite(KCZJ1,HIGH);
+    //digitalWrite(KCZJ2,HIGH);
 
     //LED初始化
     digitalWrite(LED1,LOW);
@@ -69,8 +77,10 @@ void Initialization()//初始化函数
     
     //lora相关初始化//
     digitalWrite(LORA_PWR,HIGH);
-    digitalWrite(RESETN,HIGH);
-    digitalWrite(AT_CMD,LOW);
+    //digitalWrite(RESETN,HIGH);
+    //digitalWrite(AT_CMD,LOW);
+
+	digitalWrite(V12_PWR,HIGH);//12V电源使能
 
 	delay(1000);
 	Serial.println("初始化完成");

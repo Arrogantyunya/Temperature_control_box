@@ -77,6 +77,8 @@
 #define NETLIGHT	PA15	//
 #define SWCLK		PA14	//
 
+#define V12_PWR		PC6		//
+
 //全局函数声明
 void Initialization(void);//初始化函数
 
