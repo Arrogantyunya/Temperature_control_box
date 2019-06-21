@@ -75,6 +75,9 @@ static unsigned char Y22_OFF[8] = { 0x02,0x05,0x00,0x0E,0x00,0x00 };
 static unsigned char Y23_ON[8] = { 0x02,0x05,0x00,0x0F,0xFF,0x00 };
 static unsigned char Y23_OFF[8] = { 0x02,0x05,0x00,0x0F,0x00,0x00 };
 
+static unsigned char Temp3_2[8] = { 0x03,0x06,0x00,0x1D,0x01,0xC3 };
+static unsigned char Temp4_2[8] = { 0x04,0x06,0x00,0x1D,0x01,0xC3 };
+
 String str_usb;
 
 static unsigned short length = 6;
@@ -236,6 +239,28 @@ int USB_Serial_reception(void)
 }
 void USB_Judge(unsigned char *USBREceive_Data)
 {
+	if (USBREceive_Data[0] == '3' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
+	{
+		Serial.println("输入的指令为Temp3_2");
+
+		modbus_CRC = N_CRC16(Temp3_2, length);//得到modbus_CRC的值
+		Temp3_2[6] = modbus_CRC >> 8;
+		Temp3_2[7] = modbus_CRC;
+
+		Serial2.write(Temp3_2, 8);//发送Temp3_2
+	}
+	else if (USBREceive_Data[0] == '4' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
+	{
+		Serial.println("输入的指令为Temp4_2");
+
+		modbus_CRC = N_CRC16(Temp4_2, length);//得到modbus_CRC的值
+		Temp4_2[6] = modbus_CRC >> 8;
+		Temp4_2[7] = modbus_CRC;
+
+		Serial2.write(Temp4_2, 8);//发送Temp4_2
+	}
+
+	//========================================================================================================
 	if (USBREceive_Data[0] == 'S' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&
 		USBREceive_Data[3] == '_')
 		//在这里判断进入了SET的命令
