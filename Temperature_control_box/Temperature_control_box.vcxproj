@@ -107,12 +107,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MODBUS_RTU_CRC16.h" />
+    <ClInclude Include="user_Binary_conversion.h" />
     <ClInclude Include="user_crc8.h" />
     <ClInclude Include="user_initialization.h" />
     <ClInclude Include="__vm\.Temperature_control_box.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MODBUS_RTU_CRC16.cpp" />
+    <ClCompile Include="user_Binary_conversion.cpp" />
     <ClCompile Include="user_crc8.cpp" />
     <ClCompile Include="user_initialization.cpp" />
   </ItemGroup>

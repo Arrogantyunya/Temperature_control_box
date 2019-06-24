@@ -9,16 +9,25 @@ Serial2.write(Y23_OFF, 8);//发送Y23_OFF
 Upper temperature limit//温度上限
 Lower temperature limit//温度下限
 
+SET_MacValve_1_ON//开继电器
+SET_MacValve_1_OFF//关继电器
+SET_HeatingJackets_TempUppLimit_Value//设定温度上限值
+SET_HeatingJackets_TempLowLimit_Value//设定温度下限值
+SET_HeatingJackets_1_TempDesired//设定通道1期望保持的温度，TempDesired是期望得到的温度值
+SET_HeatingJackets_1_Heating//将通道1设置为加热模式
+SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式
+GET_HeatingJackets_1_Temp//得到通道1的测量温度
+
 
 
 //这是整个8通道控制仪共用的参数
-SET_HeatingJackets_TempUppLimit//设定温度上限值
+SET_HeatingJackets_TempUppLimit_Value//设定温度上限值,Value = 溫度數值
 RESP_HeatingJackets_TempUPPlimit_OK//上限值的正确回执
 RESP_HeatingJackets_TempUPPlimit_ERR_Overflow//上限值异常（溢出）回执
 /*可能有预留的回执信息，暂时不考虑*/
 
 
-SET_HeatingJackets_TempLowLimit//设定温度下限值
+SET_HeatingJackets_TempLowLimit_Value//设定温度下限值,Value = 溫度數值
 RESP_HeatingJackets_TempLowLimit_OK//下限值的正确回执
 RESP_HeatingJackets_TempLowLimit_ERR_Overflow//下限值异常（溢出）回执
 /*可能有预留的回执信息，暂时不考虑*/
