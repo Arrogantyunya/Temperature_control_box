@@ -275,7 +275,7 @@ Discarded input sections
  .text._Z24RS485Receive_informationv
                 0x00000000      0x11c Temperature_control_box.cpp.o
  .text._Z9USB_JudgePh
-                0x00000000      0xfe8 Temperature_control_box.cpp.o
+                0x00000000      0xf88 Temperature_control_box.cpp.o
  .text._Z20USB_Serial_receptionv
                 0x00000000       0xac Temperature_control_box.cpp.o
  .text._Z4loopv
@@ -360,10 +360,6 @@ Discarded input sections
                 0x00000000        0x8 Temperature_control_box.cpp.o
  .data._ZL6Y9_OFF
                 0x00000000        0x8 Temperature_control_box.cpp.o
- .data._ZL7Temp3_2
-                0x00000000        0x8 Temperature_control_box.cpp.o
- .data._ZL7Temp4_2
-                0x00000000        0x8 Temperature_control_box.cpp.o
  .data._ZL7Y10_OFF
                 0x00000000        0x8 Temperature_control_box.cpp.o
  .data._ZL7Y11_OFF
@@ -397,7 +393,7 @@ Discarded input sections
  .rodata._Z24RS485Receive_informationv.str1.1
                 0x00000000       0x40 Temperature_control_box.cpp.o
  .rodata._Z9USB_JudgePh.str1.1
-                0x00000000      0x8ae Temperature_control_box.cpp.o
+                0x00000000      0x87a Temperature_control_box.cpp.o
  .text          0x00000000        0x0 MODBUS_RTU_CRC16.cpp.o
  .data          0x00000000        0x0 MODBUS_RTU_CRC16.cpp.o
  .bss           0x00000000        0x0 MODBUS_RTU_CRC16.cpp.o
@@ -2997,110 +2993,110 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x312d8
+.debug_info     0x00000000    0x317d8
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000     0x554a Temperature_control_box.cpp.o
- .debug_info    0x0000554a     0x2e00 user_Binary_conversion.cpp.o
- .debug_info    0x0000834a     0x37c2 EEPROM\EEPROM.cpp.o
- .debug_info    0x0000bb0c     0x2064 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
- .debug_info    0x0000db70       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
- .debug_info    0x0000db96      0x158 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
- .debug_info    0x0000dcee      0xe96 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
- .debug_info    0x0000eb84       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
- .debug_info    0x0000ebaa       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
- .debug_info    0x0000ebd0      0xf53 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
- .debug_info    0x0000fb23     0x1c15 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
- .debug_info    0x00011738      0xf9c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
- .debug_info    0x000126d4      0x71a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
- .debug_info    0x00012dee      0xbf4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
- .debug_info    0x000139e2      0x599 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
- .debug_info    0x00013f7b      0x18d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
- .debug_info    0x00014108     0x21e9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
- .debug_info    0x000162f1      0xdf0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
- .debug_info    0x000170e1      0xb3d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
- .debug_info    0x00017c1e      0xd2b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
- .debug_info    0x00018949     0x24af C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
- .debug_info    0x0001adf8      0x27c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
- .debug_info    0x0001b074      0xe08 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
- .debug_info    0x0001be7c      0x489 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
- .debug_info    0x0001c305      0x533 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
- .debug_info    0x0001c838      0xfa9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
- .debug_info    0x0001d7e1     0x3a2d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
- .debug_info    0x0002120e     0x3ba4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
- .debug_info    0x00024db2     0x51a7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
- .debug_info    0x00029f59     0x488e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
- .debug_info    0x0002e7e7     0x1e8f C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
- .debug_info    0x00030676      0xc62 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+ .debug_info    0x00000000     0x5a4a Temperature_control_box.cpp.o
+ .debug_info    0x00005a4a     0x2e00 user_Binary_conversion.cpp.o
+ .debug_info    0x0000884a     0x37c2 EEPROM\EEPROM.cpp.o
+ .debug_info    0x0000c00c     0x2064 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
+ .debug_info    0x0000e070       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
+ .debug_info    0x0000e096      0x158 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_info    0x0000e1ee      0xe96 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_info    0x0000f084       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
+ .debug_info    0x0000f0aa       0x26 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
+ .debug_info    0x0000f0d0      0xf53 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_info    0x00010023     0x1c15 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_info    0x00011c38      0xf9c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_info    0x00012bd4      0x71a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_info    0x000132ee      0xbf4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_info    0x00013ee2      0x599 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_info    0x0001447b      0x18d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
+ .debug_info    0x00014608     0x21e9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_info    0x000167f1      0xdf0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_info    0x000175e1      0xb3d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_info    0x0001811e      0xd2b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_info    0x00018e49     0x24af C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_info    0x0001b2f8      0x27c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_info    0x0001b574      0xe08 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_info    0x0001c37c      0x489 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
+ .debug_info    0x0001c805      0x533 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_info    0x0001cd38      0xfa9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_info    0x0001dce1     0x3a2d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_info    0x0002170e     0x3ba4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_info    0x000252b2     0x51a7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_info    0x0002a459     0x488e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_info    0x0002ece7     0x1e8f C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_info    0x00030b76      0xc62 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
 
-.debug_abbrev   0x00000000     0x6b1d
+.debug_abbrev   0x00000000     0x6b3b
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x710 Temperature_control_box.cpp.o
- .debug_abbrev  0x00000710      0x4cd user_Binary_conversion.cpp.o
- .debug_abbrev  0x00000bdd      0x62d EEPROM\EEPROM.cpp.o
- .debug_abbrev  0x0000120a      0x3bd C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
- .debug_abbrev  0x000015c7       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
- .debug_abbrev  0x000015db       0xf5 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
- .debug_abbrev  0x000016d0      0x2ff C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
- .debug_abbrev  0x000019cf       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
- .debug_abbrev  0x000019e3       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
- .debug_abbrev  0x000019f7      0x320 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
- .debug_abbrev  0x00001d17      0x3dc C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
- .debug_abbrev  0x000020f3      0x2dd C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
- .debug_abbrev  0x000023d0      0x1af C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
- .debug_abbrev  0x0000257f      0x1e3 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
- .debug_abbrev  0x00002762      0x1b3 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
- .debug_abbrev  0x00002915      0x11b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
- .debug_abbrev  0x00002a30      0x47b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
- .debug_abbrev  0x00002eab      0x292 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
- .debug_abbrev  0x0000313d      0x2b1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
- .debug_abbrev  0x000033ee      0x3b6 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
- .debug_abbrev  0x000037a4      0x4b0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
- .debug_abbrev  0x00003c54      0x197 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
- .debug_abbrev  0x00003deb      0x419 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
- .debug_abbrev  0x00004204      0x118 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
- .debug_abbrev  0x0000431c      0x153 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
- .debug_abbrev  0x0000446f      0x2a4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
- .debug_abbrev  0x00004713      0x6ab C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
- .debug_abbrev  0x00004dbe      0x637 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
- .debug_abbrev  0x000053f5      0x863 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
- .debug_abbrev  0x00005c58      0x6cb C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
- .debug_abbrev  0x00006323      0x4e7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
- .debug_abbrev  0x0000680a      0x313 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+ .debug_abbrev  0x00000000      0x72e Temperature_control_box.cpp.o
+ .debug_abbrev  0x0000072e      0x4cd user_Binary_conversion.cpp.o
+ .debug_abbrev  0x00000bfb      0x62d EEPROM\EEPROM.cpp.o
+ .debug_abbrev  0x00001228      0x3bd C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
+ .debug_abbrev  0x000015e5       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
+ .debug_abbrev  0x000015f9       0xf5 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_abbrev  0x000016ee      0x2ff C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_abbrev  0x000019ed       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
+ .debug_abbrev  0x00001a01       0x14 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
+ .debug_abbrev  0x00001a15      0x320 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_abbrev  0x00001d35      0x3dc C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_abbrev  0x00002111      0x2dd C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_abbrev  0x000023ee      0x1af C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_abbrev  0x0000259d      0x1e3 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_abbrev  0x00002780      0x1b3 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_abbrev  0x00002933      0x11b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
+ .debug_abbrev  0x00002a4e      0x47b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_abbrev  0x00002ec9      0x292 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_abbrev  0x0000315b      0x2b1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_abbrev  0x0000340c      0x3b6 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_abbrev  0x000037c2      0x4b0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_abbrev  0x00003c72      0x197 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_abbrev  0x00003e09      0x419 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_abbrev  0x00004222      0x118 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
+ .debug_abbrev  0x0000433a      0x153 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_abbrev  0x0000448d      0x2a4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_abbrev  0x00004731      0x6ab C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_abbrev  0x00004ddc      0x637 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_abbrev  0x00005413      0x863 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_abbrev  0x00005c76      0x6cb C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_abbrev  0x00006341      0x4e7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_abbrev  0x00006828      0x313 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
 
-.debug_line     0x00000000     0xa88f
+.debug_line     0x00000000     0xa67b
  *(.debug_line)
- .debug_line    0x00000000      0xd2e Temperature_control_box.cpp.o
- .debug_line    0x00000d2e      0x807 user_Binary_conversion.cpp.o
- .debug_line    0x00001535      0x9e5 EEPROM\EEPROM.cpp.o
- .debug_line    0x00001f1a      0x6d4 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
- .debug_line    0x000025ee       0xa4 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
- .debug_line    0x00002692       0xb3 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
- .debug_line    0x00002745      0x439 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
- .debug_line    0x00002b7e       0xa7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
- .debug_line    0x00002c25       0xa4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
- .debug_line    0x00002cc9      0x3f2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
- .debug_line    0x000030bb      0x743 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
- .debug_line    0x000037fe      0x44e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
- .debug_line    0x00003c4c      0x33b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
- .debug_line    0x00003f87      0x424 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
- .debug_line    0x000043ab      0x30d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
- .debug_line    0x000046b8      0x289 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
- .debug_line    0x00004941      0x79f C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
- .debug_line    0x000050e0      0x4f0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
- .debug_line    0x000055d0      0x3ae C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
- .debug_line    0x0000597e      0x526 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
- .debug_line    0x00005ea4      0x92b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
- .debug_line    0x000067cf      0x2dd C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
- .debug_line    0x00006aac      0x456 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
- .debug_line    0x00006f02      0x142 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
- .debug_line    0x00007044      0x172 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
- .debug_line    0x000071b6      0x564 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
- .debug_line    0x0000771a      0x73c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
- .debug_line    0x00007e56      0x7d2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
- .debug_line    0x00008628      0x946 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
- .debug_line    0x00008f6e      0xdf2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
- .debug_line    0x00009d60      0x70e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
- .debug_line    0x0000a46e      0x421 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+ .debug_line    0x00000000      0xb1a Temperature_control_box.cpp.o
+ .debug_line    0x00000b1a      0x807 user_Binary_conversion.cpp.o
+ .debug_line    0x00001321      0x9e5 EEPROM\EEPROM.cpp.o
+ .debug_line    0x00001d06      0x6d4 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
+ .debug_line    0x000023da       0xa4 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
+ .debug_line    0x0000247e       0xb3 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_line    0x00002531      0x439 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_line    0x0000296a       0xa7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
+ .debug_line    0x00002a11       0xa4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
+ .debug_line    0x00002ab5      0x3f2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_line    0x00002ea7      0x743 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_line    0x000035ea      0x44e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_line    0x00003a38      0x33b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_line    0x00003d73      0x424 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_line    0x00004197      0x30d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_line    0x000044a4      0x289 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
+ .debug_line    0x0000472d      0x79f C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_line    0x00004ecc      0x4f0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_line    0x000053bc      0x3ae C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_line    0x0000576a      0x526 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_line    0x00005c90      0x92b C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_line    0x000065bb      0x2dd C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_line    0x00006898      0x456 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_line    0x00006cee      0x142 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
+ .debug_line    0x00006e30      0x172 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_line    0x00006fa2      0x564 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_line    0x00007506      0x73c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_line    0x00007c42      0x7d2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_line    0x00008414      0x946 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_line    0x00008d5a      0xdf2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_line    0x00009b4c      0x70e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_line    0x0000a25a      0x421 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
 
 .debug_frame    0x00000000     0x37f4
  *(.debug_frame)
@@ -3174,101 +3170,101 @@ END GROUP
  .debug_frame   0x000037ac       0x28 c:/users/administrator/appdata/local/arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-callocr.o)
  .debug_frame   0x000037d4       0x20 c:/users/administrator/appdata/local/arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m\libgcc.a(_arm_unorddf2.o)
 
-.debug_str      0x00000000     0x8c7c
+.debug_str      0x00000000     0x8e98
  *(.debug_str)
- .debug_str     0x00000000     0x2fc5 Temperature_control_box.cpp.o
-                               0x3266 (size before relaxing)
- .debug_str     0x00002fc5      0x147 user_Binary_conversion.cpp.o
+ .debug_str     0x00000000     0x31e1 Temperature_control_box.cpp.o
+                               0x3482 (size before relaxing)
+ .debug_str     0x000031e1      0x147 user_Binary_conversion.cpp.o
                                0x1f39 (size before relaxing)
- .debug_str     0x0000310c      0x200 EEPROM\EEPROM.cpp.o
+ .debug_str     0x00003328      0x200 EEPROM\EEPROM.cpp.o
                                0x23db (size before relaxing)
- .debug_str     0x0000330c      0x360 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
+ .debug_str     0x00003528      0x360 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
                                0x1488 (size before relaxing)
- .debug_str     0x0000366c       0x7f C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
+ .debug_str     0x00003888       0x7f C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start.S.o
                                  0xa7 (size before relaxing)
- .debug_str     0x000036eb      0x1c0 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_str     0x00003907      0x1c0 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
                                 0x226 (size before relaxing)
- .debug_str     0x000038ab      0x229 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_str     0x00003ac7      0x229 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
                                 0x7fb (size before relaxing)
- .debug_str     0x00003ad4       0x60 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
+ .debug_str     0x00003cf0       0x60 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exc.S.o)
                                  0x97 (size before relaxing)
- .debug_str     0x00003b34       0x75 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
+ .debug_str     0x00003d50       0x75 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(isrs.S.o)
                                  0xac (size before relaxing)
- .debug_str     0x00003ba9      0x443 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_str     0x00003dc5      0x443 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
                                 0xe47 (size before relaxing)
- .debug_str     0x00003fec      0xb20 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_str     0x00004208      0xb20 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
                                0x1406 (size before relaxing)
- .debug_str     0x00004b0c      0x244 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_str     0x00004d28      0x244 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
                                 0x961 (size before relaxing)
- .debug_str     0x00004d50      0x314 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_str     0x00004f6c      0x314 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
                                 0x7ec (size before relaxing)
- .debug_str     0x00005064      0x23c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_str     0x00005280      0x23c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
                                 0xd6a (size before relaxing)
- .debug_str     0x000052a0       0xe0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_str     0x000054bc       0xe0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
                                 0x734 (size before relaxing)
- .debug_str     0x00005380       0xe7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
+ .debug_str     0x0000559c       0xe7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
                                 0x29a (size before relaxing)
- .debug_str     0x00005467      0x4e7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_str     0x00005683      0x4e7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
                                 0xf80 (size before relaxing)
- .debug_str     0x0000594e      0x1d9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_str     0x00005b6a      0x1d9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
                                 0xb6f (size before relaxing)
- .debug_str     0x00005b27      0x120 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_str     0x00005d43      0x120 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
                                 0xaae (size before relaxing)
- .debug_str     0x00005c47      0x644 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_str     0x00005e63      0x644 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
                                 0xacd (size before relaxing)
- .debug_str     0x0000628b      0x967 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_str     0x000064a7      0x967 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
                                0x18b9 (size before relaxing)
- .debug_str     0x00006bf2       0x97 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_str     0x00006e0e       0x97 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
                                 0x2b4 (size before relaxing)
- .debug_str     0x00006c89      0x4bf C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_str     0x00006ea5      0x4bf C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
                                 0xb40 (size before relaxing)
- .debug_str     0x00007148       0x7a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
+ .debug_str     0x00007364       0x7a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
                                 0x5b4 (size before relaxing)
- .debug_str     0x000071c2       0xa0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_str     0x000073de       0xa0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
                                 0x602 (size before relaxing)
- .debug_str     0x00007262      0x3e1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_str     0x0000747e      0x3e1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
                                 0x98a (size before relaxing)
- .debug_str     0x00007643      0x74d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_str     0x0000785f      0x74d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
                                0x24f5 (size before relaxing)
- .debug_str     0x00007d90      0x38e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_str     0x00007fac      0x38e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
                                0x1855 (size before relaxing)
- .debug_str     0x0000811e      0x56d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_str     0x0000833a      0x56d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
                                0x35ad (size before relaxing)
- .debug_str     0x0000868b      0x378 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_str     0x000088a7      0x378 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
                                0x1651 (size before relaxing)
- .debug_str     0x00008a03      0x1d0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_str     0x00008c1f      0x1d0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
                                0x12a8 (size before relaxing)
- .debug_str     0x00008bd3       0xa9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+ .debug_str     0x00008def       0xa9 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
                                 0xa18 (size before relaxing)
 
-.debug_loc      0x00000000     0xcb88
+.debug_loc      0x00000000     0xd02a
  *(.debug_loc)
- .debug_loc     0x00000000      0x579 Temperature_control_box.cpp.o
- .debug_loc     0x00000579      0x41e user_Binary_conversion.cpp.o
- .debug_loc     0x00000997      0xcb5 EEPROM\EEPROM.cpp.o
- .debug_loc     0x0000164c       0x97 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
- .debug_loc     0x000016e3      0x35f C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
- .debug_loc     0x00001a42      0x3a8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
- .debug_loc     0x00001dea     0x1022 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
- .debug_loc     0x00002e0c      0x92a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
- .debug_loc     0x00003736      0x1c6 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
- .debug_loc     0x000038fc      0x1b8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
- .debug_loc     0x00003ab4      0x151 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
- .debug_loc     0x00003c05     0x11e4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
- .debug_loc     0x00004de9      0x4d7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
- .debug_loc     0x000052c0      0x284 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
- .debug_loc     0x00005544      0x346 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
- .debug_loc     0x0000588a      0xe36 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
- .debug_loc     0x000066c0      0x156 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
- .debug_loc     0x00006816      0x92d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
- .debug_loc     0x00007143      0x21e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
- .debug_loc     0x00007361      0xab1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
- .debug_loc     0x00007e12      0x3ae C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
- .debug_loc     0x000081c0     0x122d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
- .debug_loc     0x000093ed      0x747 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
- .debug_loc     0x00009b34     0x244c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
- .debug_loc     0x0000bf80      0x8d2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
- .debug_loc     0x0000c852      0x336 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+ .debug_loc     0x00000000      0xa1b Temperature_control_box.cpp.o
+ .debug_loc     0x00000a1b      0x41e user_Binary_conversion.cpp.o
+ .debug_loc     0x00000e39      0xcb5 EEPROM\EEPROM.cpp.o
+ .debug_loc     0x00001aee       0x97 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_loc     0x00001b85      0x35f C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_loc     0x00001ee4      0x3a8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_loc     0x0000228c     0x1022 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_loc     0x000032ae      0x92a C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_loc     0x00003bd8      0x1c6 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_loc     0x00003d9e      0x1b8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_loc     0x00003f56      0x151 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_loc     0x000040a7     0x11e4 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_loc     0x0000528b      0x4d7 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_loc     0x00005762      0x284 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_loc     0x000059e6      0x346 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_loc     0x00005d2c      0xe36 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_loc     0x00006b62      0x156 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_loc     0x00006cb8      0x92d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_loc     0x000075e5      0x21e C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_loc     0x00007803      0xab1 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_loc     0x000082b4      0x3ae C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_loc     0x00008662     0x122d C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_loc     0x0000988f      0x747 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_loc     0x00009fd6     0x244c C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_loc     0x0000c422      0x8d2 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_loc     0x0000ccf4      0x336 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -3550,36 +3546,36 @@ END GROUP
  *(.note.GNU-stack)
 OUTPUT(C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release/Temperature_control_box.ino.elf elf32-littlearm)
 
-.debug_ranges   0x00000000     0x1e48
- .debug_ranges  0x00000000       0x58 Temperature_control_box.cpp.o
- .debug_ranges  0x00000058       0x58 user_Binary_conversion.cpp.o
- .debug_ranges  0x000000b0       0xd0 EEPROM\EEPROM.cpp.o
- .debug_ranges  0x00000180       0x30 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
- .debug_ranges  0x000001b0       0x28 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
- .debug_ranges  0x000001d8       0x70 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
- .debug_ranges  0x00000248       0xf8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
- .debug_ranges  0x00000340      0x1f0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
- .debug_ranges  0x00000530      0x160 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
- .debug_ranges  0x00000690       0x30 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
- .debug_ranges  0x000006c0       0xb8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
- .debug_ranges  0x00000778       0x28 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
- .debug_ranges  0x000007a0       0x48 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
- .debug_ranges  0x000007e8      0x278 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
- .debug_ranges  0x00000a60       0xe8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
- .debug_ranges  0x00000b48       0x70 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
- .debug_ranges  0x00000bb8       0xf0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
- .debug_ranges  0x00000ca8      0x258 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
- .debug_ranges  0x00000f00       0x78 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
- .debug_ranges  0x00000f78      0x140 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
- .debug_ranges  0x000010b8       0x10 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
- .debug_ranges  0x000010c8       0x18 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
- .debug_ranges  0x000010e0      0x298 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
- .debug_ranges  0x00001378       0x90 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
- .debug_ranges  0x00001408      0x190 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
- .debug_ranges  0x00001598      0x148 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
- .debug_ranges  0x000016e0      0x540 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
- .debug_ranges  0x00001c20      0x178 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
- .debug_ranges  0x00001d98       0xb0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
+.debug_ranges   0x00000000     0x1e60
+ .debug_ranges  0x00000000       0x70 Temperature_control_box.cpp.o
+ .debug_ranges  0x00000070       0x58 user_Binary_conversion.cpp.o
+ .debug_ranges  0x000000c8       0xd0 EEPROM\EEPROM.cpp.o
+ .debug_ranges  0x00000198       0x30 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\board.cpp.o
+ .debug_ranges  0x000001c8       0x28 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\start_c.c.o
+ .debug_ranges  0x000001f0       0x70 C:\Users\Administrator\AppData\Local\Temp\VMBCore\arduino16x\26f9647b75fb80b091c2c1c5a86ae632\variant\syscalls.c.o
+ .debug_ranges  0x00000260       0xf8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(adc_f1.c.o)
+ .debug_ranges  0x00000358      0x1f0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(dma_f1.c.o)
+ .debug_ranges  0x00000548      0x160 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(exti.c.o)
+ .debug_ranges  0x000006a8       0x30 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(gpio_f1.c.o)
+ .debug_ranges  0x000006d8       0xb8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c_f1.c.o)
+ .debug_ranges  0x00000790       0x28 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(nvic.c.o)
+ .debug_ranges  0x000007b8       0x48 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(systick.c.o)
+ .debug_ranges  0x00000800      0x278 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(timer.c.o)
+ .debug_ranges  0x00000a78       0xe8 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart_f1.c.o)
+ .debug_ranges  0x00000b60       0x70 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(util.c.o)
+ .debug_ranges  0x00000bd0       0xf0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb.c.o)
+ .debug_ranges  0x00000cc0      0x258 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_cdcacm.c.o)
+ .debug_ranges  0x00000f18       0x78 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_reg_map.c.o)
+ .debug_ranges  0x00000f90      0x140 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_core.c.o)
+ .debug_ranges  0x000010d0       0x10 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_init.c.o)
+ .debug_ranges  0x000010e0       0x18 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_mem.c.o)
+ .debug_ranges  0x000010f8      0x298 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_regs.c.o)
+ .debug_ranges  0x00001390       0x90 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(HardwareSerial.cpp.o)
+ .debug_ranges  0x00001420      0x190 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(Print.cpp.o)
+ .debug_ranges  0x000015b0      0x148 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usb_serial.cpp.o)
+ .debug_ranges  0x000016f8      0x540 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(WString.cpp.o)
+ .debug_ranges  0x00001c38      0x178 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(i2c.c.o)
+ .debug_ranges  0x00001db0       0xb0 C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\core.a(usart.c.o)
 
 .comment        0x00000000       0x7e
  .comment       0x00000000       0x7e Temperature_control_box.cpp.o

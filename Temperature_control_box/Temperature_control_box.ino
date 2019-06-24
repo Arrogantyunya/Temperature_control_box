@@ -77,8 +77,97 @@ static unsigned char Y22_OFF[8] = { 0x02,0x05,0x00,0x0E,0x00,0x00 };
 static unsigned char Y23_ON[8] = { 0x02,0x05,0x00,0x0F,0xFF,0x00 };
 static unsigned char Y23_OFF[8] = { 0x02,0x05,0x00,0x0F,0x00,0x00 };
 
-static unsigned char Temp3_2[8] = { 0x03,0x06,0x00,0x1D,0x01,0xC3 };
-static unsigned char Temp4_2[8] = { 0x04,0x06,0x00,0x1D,0x01,0xC3 };
+
+
+//这是设备地址为3的温度控制通道的指令
+static unsigned char upplimit_3[8] = { 0x03,0x06,0x00,0x05 };//设置设备地址3的上限值
+static unsigned char lowlimit_3[8] = { 0x03,0x06,0x00,0x04 };//设置设备地址3的下限值
+
+//这是设置设备地址3的8通道的加热指令
+static unsigned char heat3_1[8] = { 0x03,0x06,0x00,0x11,0x00,0x00 };
+static unsigned char heat3_2[8] = { 0x03,0x06,0x00,0x1B,0x00,0x00 };
+static unsigned char heat3_3[8] = { 0x03,0x06,0x00,0x25,0x00,0x00 };
+static unsigned char heat3_4[8] = { 0x03,0x06,0x00,0x2F,0x00,0x00 };
+static unsigned char heat3_5[8] = { 0x03,0x06,0x00,0x39,0x00,0x00 };
+static unsigned char heat3_6[8] = { 0x03,0x06,0x00,0x43,0x00,0x00 };
+static unsigned char heat3_7[8] = { 0x03,0x06,0x00,0x4D,0x00,0x00 };
+static unsigned char heat3_8[8] = { 0x03,0x06,0x00,0x57,0x00,0x00 };
+
+//这是设置设备地址3的8通道的制冷指令
+static unsigned char cool3_1[8] = { 0x03,0x06,0x00,0x11,0x00,0x01 };
+static unsigned char cool3_2[8] = { 0x03,0x06,0x00,0x1B,0x00,0x01 };
+static unsigned char cool3_3[8] = { 0x03,0x06,0x00,0x25,0x00,0x01 };
+static unsigned char cool3_4[8] = { 0x03,0x06,0x00,0x2F,0x00,0x01 };
+static unsigned char cool3_5[8] = { 0x03,0x06,0x00,0x39,0x00,0x01 };
+static unsigned char cool3_6[8] = { 0x03,0x06,0x00,0x43,0x00,0x01 };
+static unsigned char cool3_7[8] = { 0x03,0x06,0x00,0x4D,0x00,0x01 };
+static unsigned char cool3_8[8] = { 0x03,0x06,0x00,0x57,0x00,0x01 };
+
+//这是设置设备地址3的8通道期望温度指令
+static unsigned char Temp3_1[8] = { 0x03,0x06,0x00,0x09 };
+static unsigned char Temp3_2[8] = { 0x03,0x06,0x00,0x13 };
+static unsigned char Temp3_3[8] = { 0x03,0x06,0x00,0x1D };
+static unsigned char Temp3_4[8] = { 0x03,0x06,0x00,0x27 };
+static unsigned char Temp3_5[8] = { 0x03,0x06,0x00,0x31 };
+static unsigned char Temp3_6[8] = { 0x03,0x06,0x00,0x3B };
+static unsigned char Temp3_7[8] = { 0x03,0x06,0x00,0x45 };
+static unsigned char Temp3_8[8] = { 0x03,0x06,0x00,0x4F };
+
+//这是读取设备地址3的8通道测量温度的指令
+static unsigned char getT3_1[8] = { 0x03,0x03,0x10,0x01,0x00,0x01 };
+static unsigned char getT3_2[8] = { 0x03,0x03,0x10,0x02,0x00,0x01 };
+static unsigned char getT3_3[8] = { 0x03,0x03,0x10,0x03,0x00,0x01 };
+static unsigned char getT3_4[8] = { 0x03,0x03,0x10,0x04,0x00,0x01 };
+static unsigned char getT3_5[8] = { 0x03,0x03,0x10,0x05,0x00,0x01 };
+static unsigned char getT3_6[8] = { 0x03,0x03,0x10,0x06,0x00,0x01 };
+static unsigned char getT3_7[8] = { 0x03,0x03,0x10,0x07,0x00,0x01 };
+static unsigned char getT3_8[8] = { 0x03,0x03,0x10,0x08,0x00,0x01 };
+//======================================================================
+
+//这是设备地址为4的温度控制通道的指令
+static unsigned char upplimit_4[8] = { 0x04,0x06,0x00,0x05 };//设置设备地址4的上限值
+static unsigned char lowlimit_4[8] = { 0x04,0x06,0x00,0x04 };//设置设备地址4的下限值
+
+//这是设置设备地址4的8通道的加热指令
+static unsigned char heat4_1[8] = { 0x04,0x06,0x00,0x11,0x00,0x00 };
+static unsigned char heat4_2[8] = { 0x04,0x06,0x00,0x1B,0x00,0x00 };
+static unsigned char heat4_3[8] = { 0x04,0x06,0x00,0x25,0x00,0x00 };
+static unsigned char heat4_4[8] = { 0x04,0x06,0x00,0x2F,0x00,0x00 };
+static unsigned char heat4_5[8] = { 0x04,0x06,0x00,0x39,0x00,0x00 };
+static unsigned char heat4_6[8] = { 0x04,0x06,0x00,0x43,0x00,0x00 };
+static unsigned char heat4_7[8] = { 0x04,0x06,0x00,0x4D,0x00,0x00 };
+static unsigned char heat4_8[8] = { 0x04,0x06,0x00,0x57,0x00,0x00 };
+
+//这是设置设备地址4的8通道的制冷指令
+static unsigned char cool4_1[8] = { 0x04,0x06,0x00,0x11,0x00,0x01 };
+static unsigned char cool4_2[8] = { 0x04,0x06,0x00,0x1B,0x00,0x01 };
+static unsigned char cool4_3[8] = { 0x04,0x06,0x00,0x25,0x00,0x01 };
+static unsigned char cool4_4[8] = { 0x04,0x06,0x00,0x2F,0x00,0x01 };
+static unsigned char cool4_5[8] = { 0x04,0x06,0x00,0x39,0x00,0x01 };
+static unsigned char cool4_6[8] = { 0x04,0x06,0x00,0x43,0x00,0x01 };
+static unsigned char cool4_7[8] = { 0x04,0x06,0x00,0x4D,0x00,0x01 };
+static unsigned char cool4_8[8] = { 0x04,0x06,0x00,0x57,0x00,0x01 };
+
+//这是设置设备地址4的8通道期望温度指令
+static unsigned char Temp4_1[8] = { 0x04,0x06,0x00,0x09 };
+static unsigned char Temp4_2[8] = { 0x04,0x06,0x00,0x13 };
+static unsigned char Temp4_3[8] = { 0x04,0x06,0x00,0x1D };
+static unsigned char Temp4_4[8] = { 0x04,0x06,0x00,0x27 };
+static unsigned char Temp4_5[8] = { 0x04,0x06,0x00,0x31 };
+static unsigned char Temp4_6[8] = { 0x04,0x06,0x00,0x3B };
+static unsigned char Temp4_7[8] = { 0x04,0x06,0x00,0x45 };
+static unsigned char Temp4_8[8] = { 0x04,0x06,0x00,0x4F };
+
+//这是读取设备地址4的8通道测量温度的指令
+static unsigned char getT4_1[8] = { 0x04,0x03,0x10,0x01,0x00,0x01 };
+static unsigned char getT4_2[8] = { 0x04,0x03,0x10,0x02,0x00,0x01 };
+static unsigned char getT4_3[8] = { 0x04,0x03,0x10,0x03,0x00,0x01 };
+static unsigned char getT4_4[8] = { 0x04,0x03,0x10,0x04,0x00,0x01 };
+static unsigned char getT4_5[8] = { 0x04,0x03,0x10,0x05,0x00,0x01 };
+static unsigned char getT4_6[8] = { 0x04,0x03,0x10,0x06,0x00,0x01 };
+static unsigned char getT4_7[8] = { 0x04,0x03,0x10,0x07,0x00,0x01 };
+static unsigned char getT4_8[8] = { 0x04,0x03,0x10,0x08,0x00,0x01 };
+
 
 String str_usb;
 
@@ -95,9 +184,9 @@ static int LORAREceive_Length = 0;
 
 
 //相关函数的定义
-int RS485Receive_information();			//RS485接收函数
-int LORAReceive_information();			//RS485接收函数
-int USB_Serial_reception();					//USB串口的接收函数
+int RS485Receive_information();					//RS485接收函数
+int LORAReceive_information();					//RS485接收函数
+int USB_Serial_reception();						//USB串口的接收函数
 void USB_Judge(unsigned char *USBREceive_Data);	//USB判断函数
 
 
@@ -241,26 +330,26 @@ int USB_Serial_reception(void)
 }
 void USB_Judge(unsigned char *USBREceive_Data)
 {
-	if (USBREceive_Data[0] == '3' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
-	{
-		Serial.println("输入的指令为Temp3_2");
+	//if (USBREceive_Data[0] == '3' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
+	//{
+	//	Serial.println("输入的指令为Temp3_2");
 
-		modbus_CRC = N_CRC16(Temp3_2, length);//得到modbus_CRC的值
-		Temp3_2[6] = modbus_CRC >> 8;
-		Temp3_2[7] = modbus_CRC;
+	//	modbus_CRC = N_CRC16(Temp3_2, length);//得到modbus_CRC的值
+	//	Temp3_2[6] = modbus_CRC >> 8;
+	//	Temp3_2[7] = modbus_CRC;
 
-		Serial2.write(Temp3_2, 8);//发送Temp3_2
-	}
-	else if (USBREceive_Data[0] == '4' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
-	{
-		Serial.println("输入的指令为Temp4_2");
+	//	Serial2.write(Temp3_2, 8);//发送Temp3_2
+	//}
+	//else if (USBREceive_Data[0] == '4' && USBREceive_Data[1] == '_' && USBREceive_Data[2] == '2')
+	//{
+	//	Serial.println("输入的指令为Temp4_2");
 
-		modbus_CRC = N_CRC16(Temp4_2, length);//得到modbus_CRC的值
-		Temp4_2[6] = modbus_CRC >> 8;
-		Temp4_2[7] = modbus_CRC;
+	//	modbus_CRC = N_CRC16(Temp4_2, length);//得到modbus_CRC的值
+	//	Temp4_2[6] = modbus_CRC >> 8;
+	//	Temp4_2[7] = modbus_CRC;
 
-		Serial2.write(Temp4_2, 8);//发送Temp4_2
-	}
+	//	Serial2.write(Temp4_2, 8);//发送Temp4_2
+	//}
 
 	//========================================================================================================
 	if (USBREceive_Data[0] == 'S' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&
@@ -289,6 +378,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					if (modbus_CRC == RS485Receive_information())
 					{
 						Serial.println("RESP_MacValve_1_ON");//回执信息
+					}
+					else
+					{
+
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '_')
@@ -661,10 +754,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				}
 			}
 
-			else if((USBREceive_Data[15] == 'O' && USBREceive_Data[16] == 'F' && USBREceive_Data[17] == 'F') || 
-					(USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'F' && USBREceive_Data[18] == 'F'))
-				//在这里判断进入了OFF命令
-			{ 
+			//在这里判断进入了OFF命令
+			else if ((USBREceive_Data[15] == 'O' && USBREceive_Data[16] == 'F' && USBREceive_Data[17] == 'F') ||
+					 (USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'F' && USBREceive_Data[18] == 'F'))
+			{
 				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
 					//在这里判断进入了1继电器关
 				{
@@ -1050,6 +1143,157 @@ void USB_Judge(unsigned char *USBREceive_Data)
 						Serial.println("RESP_MacValve_24_OFF");//回执信息
 					}
 				}
+			}
+		}
+		//判断进入了温控通道
+		else if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
+				 USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
+				 USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
+				 USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
+				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
+		{
+			//判断进入设置通道的温度值
+			if (USBREceive_Data[21] == 'T'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'm'	&&
+				USBREceive_Data[24] == 'p'	&& USBREceive_Data[25] == 'D'	&& USBREceive_Data[26] == 'e'	&&
+				USBREceive_Data[27] == 's'	&& USBREceive_Data[28] == 'i'	&& USBREceive_Data[29] == 'r'	&&
+				USBREceive_Data[30] == 'e'	&& USBREceive_Data[31] == 'd'	&& USBREceive_Data[32] == '_')
+			{
+				//判断进入了1通道的温度期望设定
+				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+				{
+
+				}
+				//判断进入了2通道温度期望的设定
+				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
+				{
+
+				}
+			}
+			//判断进入设置下限值
+			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
+					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'U'	&& USBREceive_Data[24] == 'p'	&&
+					 USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
+					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
+					 USBREceive_Data[31] == '_')
+			{
+
+			}
+			//判断进入设置上限值
+			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
+					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'L'	&& USBREceive_Data[24] == 'o'	&&
+					 USBREceive_Data[25] == 'w'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
+					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
+					 USBREceive_Data[31] == '_')
+			{
+
+			}
+			//判断进入设置加热模式
+			else if (USBREceive_Data[21] == 'H'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'a'	&&
+					 USBREceive_Data[24] == 't'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
+					 USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
+			{
+				//判断进入了1通道加热的设定
+				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+				{
+
+				}
+				//判断进入了2通道加热的设定
+				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
+				{
+
+				}
+			}
+			//判断进入设置制冷模式
+			else if (USBREceive_Data[21] == 'C'	&& USBREceive_Data[22] == 'o'	&& USBREceive_Data[23] == 'o'	&&
+					 USBREceive_Data[24] == 'l'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
+					 USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
+			{
+				//判断进入了1通道制冷的设定
+				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+				{
+
+				}
+				//判断进入了2通道制冷的设定
+				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
+				{
+
+				}
+			}
+		}
+		//这里判断进入了MFC的设置
+		else if (USBREceive_Data[4] == 'M'	&& USBREceive_Data[5] == 'F'	&& USBREceive_Data[6] == 'C'	&&
+				 USBREceive_Data[7] == '_')
+		{
+			//这里判断进入了MFC_OPEN
+			if (USBREceive_Data[8] == 'O'	&& USBREceive_Data[9] == 'p'	&& USBREceive_Data[10] == 'e'	&&
+				USBREceive_Data[11] == 'n')
+			{
+				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
+				{
+
+				}
+			}
+			//这里判断进入了MFC_close
+			else if (USBREceive_Data[8] == 'C'	&& USBREceive_Data[9] == 'l'	&& USBREceive_Data[10] == 'o'	&&
+					 USBREceive_Data[11] == 's'	&& USBREceive_Data[12] == 'e')
+			{
+				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
+				{
+
+				}
+				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '_')
+				{
+
+				}
+				else if (USBREceive_Data[13] == '3' && USBREceive_Data[14] == '_')
+				{
+
+				}
+			}
+		}
+	}
+	//这里判断进入了GET命令
+	else if (USBREceive_Data[0] == 'G' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&
+			 USBREceive_Data[3] == '_')
+	{
+		//这里判断进入了温度通道
+		if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
+			USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
+			USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
+			USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
+			USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
+		{
+			//这里判断进入1通道
+			if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+
+				}
+			}
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					
+				}
+			}
+		}
+		else if (USBREceive_Data[4] == 'M'	&& USBREceive_Data[5] == 'F'	&& USBREceive_Data[6] == 'C'	&&
+				 USBREceive_Data[7] == '_')
+		{
+			//进入了GAS流量查询
+			if (USBREceive_Data[10] == 'G'	&& USBREceive_Data[11] == 'A'	&& USBREceive_Data[12] == 's')
+			{
+
+			}
+			//进入了Status状态查询
+			else if (USBREceive_Data[10] == 'S'	&& USBREceive_Data[11] == 't'	&& USBREceive_Data[12] == 'a' &&
+					 USBREceive_Data[13] == 't' && USBREceive_Data[14] == 'u'	&& USBREceive_Data[15] == 's')
+			{
+				
 			}
 		}
 	}

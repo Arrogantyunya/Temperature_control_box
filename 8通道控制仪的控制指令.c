@@ -11,12 +11,20 @@ Lower temperature limit//温度下限
 
 SET_MacValve_1_ON//开继电器
 SET_MacValve_1_OFF//关继电器
+GET_MacValve_1_Status//得到继电器的状态
+SET_MFC_1_Open//开MFC
+SET_MFC_1_Close//关MFC
+SET_MFC_1_GAS_1000// 1000 means 1sccm
+GET_MFC_1_GAS//得到MFC的流量
+GET_MFC_1_Status//得到MFC的状态
 SET_HeatingJackets_TempUppLimit_Value//设定温度上限值
 SET_HeatingJackets_TempLowLimit_Value//设定温度下限值
-SET_HeatingJackets_1_TempDesired//设定通道1期望保持的温度，TempDesired是期望得到的温度值
+SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度，Value是期望得到的温度值
 SET_HeatingJackets_1_Heating//将通道1设置为加热模式
 SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式
 GET_HeatingJackets_1_Temp//得到通道1的测量温度
+
+
 
 
 
@@ -34,19 +42,19 @@ RESP_HeatingJackets_TempLowLimit_ERR_Overflow//下限值异常（溢出）回执
 //---------------------------------------------------------------------------//
 
 //设置通道X的温度，2级私有参数
-SET_HeatingJackets_1_TempDesired//设定通道1期望保持的温度，TempDesired是期望得到的温度值
+SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度，TempDesired是期望得到的温度值
 RESP_HeatingJackets_1_TempDesired_OK//通道1温度参数设置成功回执
 RESP_HeatingJackets_1_TempDesired_ERR_Overflow//通道1温度参数设置失败（溢出）回执
 /*可能有预留的回执信息，暂时不考虑*/
 
 
-SET_HeatingJackets_2_TempDesired//设定通道2期望保持的温度，TempDesired是期望得到的温度值
+SET_HeatingJackets_2_TempDesired_Value//设定通道2期望保持的温度，Value是期望得到的温度值
 RESP_HeatingJackets_2_TempDesired_OK//通道2温度参数设置成功回执
 RESP_HeatingJackets_2_TempDesired_ERR_Overflow//通道2温度参数设置失败（溢出）回执
 /*可能有预留的回执信息，暂时不考虑*/
 
 
-SET_HeatingJackets_3_TempDesired//设定通道3期望保持的温度，TempDesired是期望得到的温度值
+SET_HeatingJackets_3_TempDesired_Value//设定通道3期望保持的温度，TempDesired是期望得到的温度值
 RESP_HeatingJackets_3_TempDesired_OK//通道3温度参数设置成功回执
 RESP_HeatingJackets_3_TempDesired_ERR_Overflow//通道3温度参数设置失败（溢出）回执
 /*可能有预留的回执信息，暂时不考虑*/
