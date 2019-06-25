@@ -19,8 +19,10 @@
 
 // The setup() function runs once each time the micro-controller starts
 
+#include "user_DECtoHEX.h"
 #include"user_initialization.h"	//初始化函数
 #include"MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
+#include "user_DECtoHEX.h"
 //#include "user_Binary_conversion.h"//进制转换函数，这个库有问题，添加了导致程序下载不了
 
 //这里是从机设备地址为1的8路继电器
@@ -1167,23 +1169,28 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
 					Serial.print("TempDesired = ");
 					Serial.println(TempDesired);
-					for (size_t i = 33; i < 37; i++)
+					DEC_to_HEX(TempDesired);
+					/*for (size_t i = 33; i < 37; i++)
 					{
 						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
 						Serial.println(USBREceive_Data[i]);
-					}
+					}*/
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
 				{
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					
 					Serial.print("TempDesired = ");
 					Serial.println(TempDesired);
-					for (size_t i = 33; i < 37; i++)
+
+					/*for (size_t i = 33; i < 37; i++)
 					{
 						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
 						Serial.println(USBREceive_Data[i]);
-					}
+					}*/
+
+					
 				}
 			}
 			//判断进入设置上限值
