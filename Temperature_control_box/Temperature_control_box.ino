@@ -22,7 +22,7 @@
 #include "user_Binary_conversion.h"
 #include"user_initialization.h"	//初始化函数
 #include"MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
-#include "user_Binary_conversion.h"//进制转换函数
+//#include "user_Binary_conversion.h"//进制转换函数，这个库有问题，添加了导致程序下载不了
 
 //这里是从机设备地址为1的8路继电器
 static unsigned char Y0_ON[8] = { 0x01,0x05,0x00,0x00,0xFF,0x00 };
@@ -1161,7 +1161,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				//判断进入了1通道的温度期望设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
 				{
-
+					USBREceive_Data
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
