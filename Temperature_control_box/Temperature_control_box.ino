@@ -19,6 +19,7 @@
 
 // The setup() function runs once each time the micro-controller starts
 
+#include "user_HEXtoDEC.h"
 #include "user_DECtoHEX.h"
 #include"user_initialization.h"	//初始化函数
 #include"MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
@@ -1169,7 +1170,19 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
 					Serial.print("TempDesired = ");
 					Serial.println(TempDesired);
-					DEC_to_HEX(TempDesired);
+
+					TempDesired = DEC_to_HEX(TempDesired);
+					Serial.print("DEC_to_HEX	TempDesired = ");
+					Serial.println(TempDesired);
+					/*String T;
+					T = String(TempDesired);*/
+					char *T;
+					*T = TempDesired;
+					/*char *T;
+					*T = 0xff;*/
+					TempDesired = charhex_to_dec(T);
+					Serial.print("charhex_to_dec	TempDesired = ");
+					Serial.println(TempDesired);
 					/*for (size_t i = 33; i < 37; i++)
 					{
 						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
