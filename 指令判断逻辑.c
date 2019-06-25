@@ -4,8 +4,9 @@
 
 
 //继电器相关
-SET_MacValve_1_ON//开继电器
-SET_MacValve_1_OFF//关继电器
+SET_MacValve_1_ON		//开继电器			01 05 0000 FF00
+SET_MacValve_1_OFF		//关继电器			01 05 0000 0000
+GET_MacValve_1_Status	//得到继电器的状态	01 01 0000 0001
 
 //MFC相关
 SET_MFC_1_Open//开MFC
@@ -15,12 +16,12 @@ GET_MFC_1_GAS//得到MFC的流量
 GET_MFC_1_Status//得到MFC的状态
 
 //温度通道相关
-SET_HeatingJackets_TempUppLimit_Value//设定温度上限值
-SET_HeatingJackets_TempLowLimit_Value//设定温度下限值
-SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度，Value是期望得到的温度值
-SET_HeatingJackets_1_Heating//将通道1设置为加热模式
-SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式
-GET_HeatingJackets_1_Temp//得到通道1的测量温度
+SET_HeatingJackets_TempUppLimit_Value//设定温度上限值			03 06 0005 01C3
+SET_HeatingJackets_TempLowLimit_Value//设定温度下限值			03 06 0004 01C3
+SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度	03 06 0009 01C3
+SET_HeatingJackets_1_Heating//将通道1设置为加热模式				03 06 0011 0000
+SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式				03 06 0011 0001
+GET_HeatingJackets_1_Temp//得到通道1的测量温度					03 03 1001 0001
 
 
 //判断是否进入了SET命令
