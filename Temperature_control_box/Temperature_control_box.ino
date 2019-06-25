@@ -19,7 +19,6 @@
 
 // The setup() function runs once each time the micro-controller starts
 
-#include "user_Binary_conversion.h"
 #include"user_initialization.h"	//初始化函数
 #include"MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
 //#include "user_Binary_conversion.h"//进制转换函数，这个库有问题，添加了导致程序下载不了
@@ -181,6 +180,10 @@ static unsigned char USBREceive_Data[50];
 static int USBREceive_Length = 0;
 static unsigned char LORAEceive_Data[50];
 static int LORAREceive_Length = 0;
+static long TempDesired = 0;//温度期望值
+static long TempUppLimit = 0;//温度上限值
+static long TempLowLimit = 0;//温度下限值
+static int Temp_Measure = 0;//温度测量值
 
 
 //相关函数的定义
@@ -1161,31 +1164,49 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				//判断进入了1通道的温度期望设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
 				{
-					USBREceive_Data
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");
+					Serial.println(TempDesired);
+					for (size_t i = 33; i < 37; i++)
+					{
+						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
+						Serial.println(USBREceive_Data[i]);
+					}
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
 				{
-
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");
+					Serial.println(TempDesired);
+					for (size_t i = 33; i < 37; i++)
+					{
+						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
+						Serial.println(USBREceive_Data[i]);
+					}
 				}
 			}
-			//判断进入设置下限值
+			//判断进入设置上限值
 			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
 					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'U'	&& USBREceive_Data[24] == 'p'	&&
 					 USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
 					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
 					 USBREceive_Data[31] == '_')
 			{
-
+				TempUppLimit = ((USBREceive_Data[32] - 48) * 1000) + ((USBREceive_Data[33] - 48) * 100) + ((USBREceive_Data[34] - 48) * 10) + (USBREceive_Data[35] - 48);
+				Serial.print("TempUppLimit = ");
+				Serial.println(TempUppLimit);
 			}
-			//判断进入设置上限值
+			//判断进入设置下限值
 			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
 					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'L'	&& USBREceive_Data[24] == 'o'	&&
 					 USBREceive_Data[25] == 'w'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
 					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
 					 USBREceive_Data[31] == '_')
 			{
-
+				TempLowLimit = ((USBREceive_Data[32] - 48) * 1000) + ((USBREceive_Data[33] - 48) * 100) + ((USBREceive_Data[34] - 48) * 10) + (USBREceive_Data[35] - 48);
+				Serial.print("TempLowLimit = ");
+				Serial.println(TempLowLimit);
 			}
 			//判断进入设置加热模式
 			else if (USBREceive_Data[21] == 'H'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'a'	&&
@@ -1256,12 +1277,25 @@ void USB_Judge(unsigned char *USBREceive_Data)
 	else if (USBREceive_Data[0] == 'G' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&
 			 USBREceive_Data[3] == '_')
 	{
+		//在这里判断进入了继电器的查询
+		if (USBREceive_Data[4] == 'M' && USBREceive_Data[5] == 'a' && USBREceive_Data[6] == 'c' &&
+			USBREceive_Data[7] == 'V' && USBREceive_Data[8] == 'a' && USBREceive_Data[9] == 'l' &&
+			USBREceive_Data[10] == 'v' && USBREceive_Data[11] == 'e' && USBREceive_Data[12] == '_')
+		{
+			//这里判断为1继电器的查询
+			if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+
+			}
+		}
 		//这里判断进入了温度通道
-		if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
-			USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
-			USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
-			USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
-			USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
+		else if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
+				 USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
+				 USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
+				 USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
+				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
 		{
 			//这里判断进入1通道
 			if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')

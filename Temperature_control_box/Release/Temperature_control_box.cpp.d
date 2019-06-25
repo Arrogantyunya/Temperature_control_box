@@ -50,7 +50,6 @@ C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Ardui
  C:\Program\ Files\ (x86)\Arduino\hardware\Arduino_STM32-master\STM32F1\cores\maple/tone.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\Arduino_STM32-master\STM32F1\cores\maple/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\Arduino_STM32-master\STM32F1\variants\generic_stm32f103r/variant.h \
- C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\user_Binary_conversion.h \
  C:\Users\Administrator\AppData\Local\Temp\VMBuilds\Temperature_control_box\Arduino_STM32-master_genericSTM32F103R\Release\user_initialization.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\Arduino_STM32-master\STM32F1\libraries\EEPROM/EEPROM.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\Arduino_STM32-master\STM32F1\cores\maple/wirish.h \
