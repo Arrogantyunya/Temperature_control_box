@@ -5,15 +5,16 @@
 #include "user_DECtoHEX.h"
 
 
-int DEC_to_HEX(long n)
+char DEC_to_HEX(long n)
 {
 	char x[16] = { '0','1','2','3','4','5','6','7','8',
 					'9','A','B','C','D','E','F' };//十进制与十六进制对应的数组
 	//int n = Detection();//输入数据检查再赋值
 
 	//int n = 1205;
-	int k = Judge(n);//检测数组需要的长度
-	char y[k];//创建数组储存十六进制数
+	//int k = Judge(n);//检测数组需要的长度
+	//char y[k];//创建数组储存十六进制数
+	k = Judge(n);//检测数组需要的长度
 	memset(y, '\0', sizeof(y));//清空数组
 
 	int i, j;
@@ -42,7 +43,9 @@ int DEC_to_HEX(long n)
 		j--;
 	}
 
-	return 0;
+	/*return 0;*/
+	static char *intptr = y;
+	return *intptr;
 }
 
 int Judge(int n)

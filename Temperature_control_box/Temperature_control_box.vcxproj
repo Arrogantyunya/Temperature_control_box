@@ -111,6 +111,7 @@
     <ClInclude Include="user_DECtoHEX.h" />
     <ClInclude Include="user_HEXtoDEC.h" />
     <ClInclude Include="user_initialization.h" />
+    <ClInclude Include="user_test.h" />
     <ClInclude Include="__vm\.Temperature_control_box.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +120,7 @@
     <ClCompile Include="user_DECtoHEX.cpp" />
     <ClCompile Include="user_HEXtoDEC.cpp" />
     <ClCompile Include="user_initialization.cpp" />
+    <ClCompile Include="user_test.cpp" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>

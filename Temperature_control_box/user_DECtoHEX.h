@@ -9,10 +9,13 @@
 	#include "WProgram.h"
 #endif
 
+static int k;//检测数组需要的长度
+static char y[10];//创建数组储存十六进制数
+//static char *intptr;
 
 int Judge(int n);
 int Detection(void);
-int DEC_to_HEX(long n);
+char DEC_to_HEX(long n);
 
 #endif
 

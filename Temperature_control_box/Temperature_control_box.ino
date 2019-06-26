@@ -19,6 +19,7 @@
 
 // The setup() function runs once each time the micro-controller starts
 
+#include "user_test.h"
 #include "user_HEXtoDEC.h"
 #include "user_DECtoHEX.h"
 #include"user_initialization.h"	//初始化函数
@@ -1171,23 +1172,46 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");
 					Serial.println(TempDesired);
 
-					TempDesired = DEC_to_HEX(TempDesired);
-					Serial.print("DEC_to_HEX	TempDesired = ");
-					Serial.println(TempDesired);
-					/*String T;
-					T = String(TempDesired);*/
-					char *T;
-					*T = TempDesired;
-					/*char *T;
-					*T = 0xff;*/
-					TempDesired = charhex_to_dec(T);
-					Serial.print("charhex_to_dec	TempDesired = ");
-					Serial.println(TempDesired);
+					int x = 4294967295; //4294967295这是最大值
+					char array[33] = {};
+					char *ptrarr = NULL;
+					//ptrarr = inttohex1(x);//char * inttohex1(int aa)
+					ptrarr = inttohex2(x);//char * inttohex2(int aa)
+
+					Serial.print("array = ");
+					Serial.print(*(ptrarr + 0));
+					Serial.print(*(ptrarr + 1));
+					Serial.print(*(ptrarr + 2));
+					Serial.print(*(ptrarr + 3));
+					Serial.print(*(ptrarr + 4));
+					Serial.print(*(ptrarr + 5));
+					Serial.print(*(ptrarr + 6));
+					Serial.println(*(ptrarr + 7));
+			
+
+					Serial.print("inttohex2(x) = ");
+					Serial.println(inttohex2(x));
+
+					//------------------------------------------------
+					//unsigned char TEM[10];
+					//TEM = DEC_to_HEX(TempDesired);
+					//Serial.print("DEC_to_HEX	TempDesired = ");
+					//Serial.println(TempDesired);
+					///*String T;
+					//T = String(TempDesired);*/
+					///*char *T;
+					//*T = TempDesired;*/
+					///*char *T;
+					//*T = 0xff;*/
+					//TempDesired = charhex_to_dec(T);
+					//Serial.print("charhex_to_dec	TempDesired = ");
+					//Serial.println(TempDesired);
 					/*for (size_t i = 33; i < 37; i++)
 					{
 						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
 						Serial.println(USBREceive_Data[i]);
 					}*/
+					//------------------------------------------------------------
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
