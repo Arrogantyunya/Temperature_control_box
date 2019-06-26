@@ -184,9 +184,9 @@ static unsigned char USBREceive_Data[50];
 static int USBREceive_Length = 0;
 static unsigned char LORAEceive_Data[50];
 static int LORAREceive_Length = 0;
-static long TempDesired = 0;//温度期望值
-static long TempUppLimit = 0;//温度上限值
-static long TempLowLimit = 0;//温度下限值
+static int TempDesired = 0;	//温度期望值
+static int TempUppLimit = 0;//温度上限值
+static int TempLowLimit = 0;//温度下限值
 static int Temp_Measure = 0;//温度测量值
 
 
@@ -1147,7 +1147,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 
 					if (modbus_CRC == RS485Receive_information())
 					{
-						Serial.println("RESP_MacValve_24_OFF");//回执信息
+						Serial.println(String("RESP_MacValve_24_OFF"));//回执信息
 					}
 				}
 			}
@@ -1169,49 +1169,82 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
 				{
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
-					Serial.print("TempDesired = ");
+					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
-
-					int x = 4294967295; //4294967295这是最大值
-					char array[33] = {};
-					char *ptrarr = NULL;
-					//ptrarr = inttohex1(x);//char * inttohex1(int aa)
-					ptrarr = inttohex2(x);//char * inttohex2(int aa)
-
-					Serial.print("array = ");
-					Serial.print(*(ptrarr + 0));
-					Serial.print(*(ptrarr + 1));
-					Serial.print(*(ptrarr + 2));
-					Serial.print(*(ptrarr + 3));
-					Serial.print(*(ptrarr + 4));
-					Serial.print(*(ptrarr + 5));
-					Serial.print(*(ptrarr + 6));
-					Serial.println(*(ptrarr + 7));
-			
-
-					Serial.print("inttohex2(x) = ");
-					Serial.println(inttohex2(x));
-
-					//------------------------------------------------
-					//unsigned char TEM[10];
-					//TEM = DEC_to_HEX(TempDesired);
-					//Serial.print("DEC_to_HEX	TempDesired = ");
-					//Serial.println(TempDesired);
-					///*String T;
-					//T = String(TempDesired);*/
-					///*char *T;
-					//*T = TempDesired;*/
-					///*char *T;
-					//*T = 0xff;*/
-					//TempDesired = charhex_to_dec(T);
-					//Serial.print("charhex_to_dec	TempDesired = ");
-					//Serial.println(TempDesired);
-					/*for (size_t i = 33; i < 37; i++)
+					char * pttarr = NULL;
+					String str[10];
+					String hex1;
+					String dec1;
+					
+					if (TempDesired <= 999 && TempDesired > 255)
 					{
-						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
-						Serial.println(USBREceive_Data[i]);
-					}*/
-					//------------------------------------------------------------
+						pttarr = inttohex2(TempDesired);
+						Serial.print("inttohex2(TempDesired) = ");
+						Serial.println(inttohex2(TempDesired));
+
+						int TempDesired1 = TempDesired - 256;
+
+						
+						Serial.print(*(pttarr + 0));
+						Serial.print(*(pttarr + 1));
+						Serial.print(*(pttarr + 2));
+
+						str[0] = String(*(pttarr + 0));
+						str[1] = String(*(pttarr + 1));
+						str[2] = String(*(pttarr + 0)) + String(*(pttarr + 1));
+						str[3] = String(TempDesired1);
+						str[4] = String(TempDesired, HEX);
+						str[5] = str[4].substring(0, 2);
+						str[6] = str[4].substring(2);
+						
+						str[7] = String(TempDesired1);
+						str[8] = String(0x100);
+
+						hex1 = String(TempDesired,HEX);
+						dec1 = String(TempDesired);
+						for (int i = 0; i < 10; i++) 
+						{
+							Serial.print(String("str[ ") + i + " ]: ");
+							Serial.println(str[i]);
+						}
+
+						long a = hex1.toInt();//所以使用long来接收
+						Serial.print("a = ");
+						Serial.println(a, HEX);
+
+						long b = dec1.toInt();
+						Serial.print("b = ");
+						Serial.println(b, HEX);
+
+						long c = str[7].toInt();
+						Serial.print("c = ");
+						Serial.println(c, HEX);
+
+						long d = str[8].toInt();
+						Serial.print("d = ");
+						Serial.println(d, HEX);
+
+						Temp3_1[4] = 0x01;
+						Temp3_1[5] = c;
+						Serial.println(Temp3_1[5],HEX);
+						//Serial.println(Temp3_3[3],HEX);
+						modbus_CRC = N_CRC16(Temp3_1, length);//得到modbus_CRC的值
+						Temp3_1[6] = modbus_CRC >> 8;
+						Temp3_1[7] = modbus_CRC;
+
+						Serial2.write(Temp3_1, 8);//发送Y23_OFF
+
+						if (modbus_CRC == RS485Receive_information())
+						{
+							Serial.println(String("OK"));//回执信息
+						}
+
+						//Temp3_1[4] = *(pttarr + 0) * 10 + *(pttarr + 1);
+						/*Temp3_1[5] = *(pttarr + 0);
+						Serial.print("Temp3_1[4] = ");
+						Serial.println(Temp3_1[4],HEX);*/
+
+					}
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')

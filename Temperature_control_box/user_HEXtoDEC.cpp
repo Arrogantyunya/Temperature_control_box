@@ -49,7 +49,8 @@ int charhex_to_dec(char *chr)
 	int chrtoint = 0;
 	int value = 0;
 
-	chrlen = strlen(chr);
+	/*chrlen = strlen(chr);*/
+	chrlen = 4;
 
 	//检查字符串是否是以0x或者0X开头的。
 	if ((chr[0] == '0') && ((chr[1] == 'x') || (chr[1] == 'X')))
@@ -67,7 +68,7 @@ int charhex_to_dec(char *chr)
 		else if (i == (chrlen - 1))         //最后一位
 			value += chrtoint;
 	}
-	Serial.print("value = ");
-	Serial.println(value);
+	//Serial.print("value = ");
+	//Serial.println(value);
 	return value;
 }
