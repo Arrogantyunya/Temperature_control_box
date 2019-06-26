@@ -24,6 +24,91 @@ SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式				03 06 0011 0001
 GET_HeatingJackets_1_Temp//得到通道1的测量温度					03 03 1001 0001
 
 
+//=============================================================
+//判断进入了1通道的温度期望设定
+if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+{
+	TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+	Serial.print("TempDesired = ");
+	Serial.println(TempDesired);
+
+	int x = 4294967295; //4294967295这是最大值
+	int hex = 0x1;
+	long a;
+	char array[33] = {};
+	char hexarr[] = { 0x0A,0x0C };
+	String str[10];
+	String strDemo = "Hi";
+	//str[0] = "Hello World";                      // 使用赋值的方法直接定义String对象 
+	str[1] = String('a');                        // 将字符转为String对象
+	str[2] = String("This is a string");         // 将字符串转为String对象
+	str[3] = String(strDemo + " my lover");      // 将String对象和普通字符串通过+连接
+	str[4] = String(12);                         // 将普通数字转换为String对象
+	str[5] = String(12, HEX);                    // 将十进制转为十六进制表示的String对象
+	str[6] = String(255, BIN);                   // 将十进制转为二进制表示的String对象
+	str[7] = String(B11111111, DEC);             // 将二进制转为十六进制表示的String对象
+	str[8] = String(32769, DEC);                 // 长整型用十进制表示转换为String对象
+	str[9] = String(5.6985, 3);                  // 保留3位浮点数表示String对象
+	str[0] = "RESP_MacValve_24_OFF" + str[7]+"_";
+	for (int i = 0; i < 10; i++) {
+		Serial.print(String("str") + i + ": ");
+		Serial.println(str[i]);
+	}
+	char *ptrhex = hexarr;
+	char *ptrarr = NULL;
+	//ptrarr = inttohex1(x);//char * inttohex1(int aa)
+	ptrarr = inttohex2(x);//char * inttohex2(int aa)
+	//ptrarr = inttohex3(x);//char * inttohex3(int aa)
+
+	Serial.print("array = ");
+	Serial.print(*(ptrarr + 0));
+	Serial.print(*(ptrarr + 1));
+	Serial.print(*(ptrarr + 2));
+	Serial.print(*(ptrarr + 3));
+	Serial.print(*(ptrarr + 4));
+	Serial.print(*(ptrarr + 5));
+	Serial.print(*(ptrarr + 6));
+	Serial.println(*(ptrarr + 7));
+
+
+	Serial.print("inttohex2(x) = ");
+	Serial.println(inttohex2(x));
+
+	a = charhex_to_dec(ptrhex);//int charhex_to_dec(char *chr)
+	Serial.print("a = ");
+	Serial.println(a);
+
+	Serial.print("charhex_to_dec(ptrhex) = ");
+	Serial.println(charhex_to_dec(ptrhex));
+
+	//a = hextodec1(hex);//int hextodec1(int aa)
+	//Serial.println(a);
+	//Serial.print("hextodec1(hex) = ");
+	//Serial.println(hextodec1(hex));
+
+	//------------------------------------------------
+	//unsigned char TEM[10];
+	//TEM = DEC_to_HEX(TempDesired);
+	//Serial.print("DEC_to_HEX	TempDesired = ");
+	//Serial.println(TempDesired);
+	///*String T;
+	//T = String(TempDesired);*/
+	///*char *T;
+	//*T = TempDesired;*/
+	///*char *T;
+	//*T = 0xff;*/
+	//TempDesired = charhex_to_dec(T);
+	//Serial.print("charhex_to_dec	TempDesired = ");
+	//Serial.println(TempDesired);
+	/*for (size_t i = 33; i < 37; i++)
+	{
+		Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
+		Serial.println(USBREceive_Data[i]);
+	}*/
+	//------------------------------------------------------------
+}
+
+
 //判断是否进入了SET命令
 if (SET_)
 {
