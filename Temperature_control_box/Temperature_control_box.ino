@@ -19,6 +19,7 @@
 
 // The setup() function runs once each time the micro-controller starts
 
+#include "user_Character.h"
 #include "user_test.h"
 #include "user_HEXtoDEC.h"
 #include "user_DECtoHEX.h"
@@ -188,6 +189,7 @@ static int TempDesired = 0;	//温度期望值
 static int TempUppLimit = 0;//温度上限值
 static int TempLowLimit = 0;//温度下限值
 static int Temp_Measure = 0;//温度测量值
+static char * ptrc = NULL;
 
 
 //相关函数的定义
@@ -1160,10 +1162,14 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
 		{
 			//判断进入设置通道的温度值
-			if (USBREceive_Data[21] == 'T'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'm'	&&
+			if ((USBREceive_Data[21] == 'T'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'm'	&&
 				USBREceive_Data[24] == 'p'	&& USBREceive_Data[25] == 'D'	&& USBREceive_Data[26] == 'e'	&&
 				USBREceive_Data[27] == 's'	&& USBREceive_Data[28] == 'i'	&& USBREceive_Data[29] == 'r'	&&
-				USBREceive_Data[30] == 'e'	&& USBREceive_Data[31] == 'd'	&& USBREceive_Data[32] == '_')
+				USBREceive_Data[30] == 'e'	&& USBREceive_Data[31] == 'd'	&& USBREceive_Data[32] == '_')	||
+				(USBREceive_Data[22] == 'T'	&& USBREceive_Data[23] == 'e'	&& USBREceive_Data[24] == 'm'	&&
+				 USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'D'	&& USBREceive_Data[27] == 'e'	&&
+				 USBREceive_Data[28] == 's'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 'r'	&&
+				 USBREceive_Data[31] == 'e'	&& USBREceive_Data[32] == 'd'	&& USBREceive_Data[33] == '_'))
 			{
 				//判断进入了1通道的温度期望设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
@@ -1171,96 +1177,431 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
-					char * pttarr = NULL;
-					String str[10];
-					String hex1;
-					String dec1;
+
+					ptrc  = Character_processing(TempDesired);
+
+					Temp3_1[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_1[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
 					
-					if (TempDesired <= 999 && TempDesired > 255)
+					modbus_CRC = N_CRC16(Temp3_1, length);//得到modbus_CRC的值
+					Temp3_1[6] = modbus_CRC >> 8;
+					Temp3_1[7] = modbus_CRC;
+
+					Serial2.write(Temp3_1, 8);//发送Y23_OFF
+
+					if (modbus_CRC == RS485Receive_information())
 					{
-						pttarr = inttohex2(TempDesired);
-						Serial.print("inttohex2(TempDesired) = ");
-						Serial.println(inttohex2(TempDesired));
-
-						int TempDesired1 = TempDesired - 256;
-
-						
-						Serial.print(*(pttarr + 0));
-						Serial.print(*(pttarr + 1));
-						Serial.print(*(pttarr + 2));
-
-						str[0] = String(*(pttarr + 0));
-						str[1] = String(*(pttarr + 1));
-						str[2] = String(*(pttarr + 0)) + String(*(pttarr + 1));
-						str[3] = String(TempDesired1);
-						str[4] = String(TempDesired, HEX);
-						str[5] = str[4].substring(0, 2);
-						str[6] = str[4].substring(2);
-						
-						str[7] = String(TempDesired1);
-						str[8] = String(0x100);
-
-						hex1 = String(TempDesired,HEX);
-						dec1 = String(TempDesired);
-						for (int i = 0; i < 10; i++) 
-						{
-							Serial.print(String("str[ ") + i + " ]: ");
-							Serial.println(str[i]);
-						}
-
-						long a = hex1.toInt();//所以使用long来接收
-						Serial.print("a = ");
-						Serial.println(a, HEX);
-
-						long b = dec1.toInt();
-						Serial.print("b = ");
-						Serial.println(b, HEX);
-
-						long c = str[7].toInt();
-						Serial.print("c = ");
-						Serial.println(c, HEX);
-
-						long d = str[8].toInt();
-						Serial.print("d = ");
-						Serial.println(d, HEX);
-
-						Temp3_1[4] = 0x01;
-						Temp3_1[5] = c;
-						Serial.println(Temp3_1[5],HEX);
-						//Serial.println(Temp3_3[3],HEX);
-						modbus_CRC = N_CRC16(Temp3_1, length);//得到modbus_CRC的值
-						Temp3_1[6] = modbus_CRC >> 8;
-						Temp3_1[7] = modbus_CRC;
-
-						Serial2.write(Temp3_1, 8);//发送Y23_OFF
-
-						if (modbus_CRC == RS485Receive_information())
-						{
-							Serial.println(String("OK"));//回执信息
-						}
-
-						//Temp3_1[4] = *(pttarr + 0) * 10 + *(pttarr + 1);
-						/*Temp3_1[5] = *(pttarr + 0);
-						Serial.print("Temp3_1[4] = ");
-						Serial.println(Temp3_1[4],HEX);*/
-
+						Serial.println(String("RESP_HeatingJackets_1_TempDesired_OK"));//回执信息
 					}
 				}
 				//判断进入了2通道温度期望的设定
 				else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
 				{
 					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
-					
-					Serial.print("TempDesired = ");
+					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					/*for (size_t i = 33; i < 37; i++)
-					{
-						Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
-						Serial.println(USBREceive_Data[i]);
-					}*/
+					ptrc = Character_processing(TempDesired);
 
-					
+					Temp3_2[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_2[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_2, length);//得到modbus_CRC的值
+					Temp3_2[6] = modbus_CRC >> 8;
+					Temp3_2[7] = modbus_CRC;
+
+					Serial2.write(Temp3_2, 8);//发送Y23_OFF
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_2_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了3通道温度期望的设定
+				else if (USBREceive_Data[19] == '3' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_3[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_3[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_3, length);//得到modbus_CRC的值
+					Temp3_3[6] = modbus_CRC >> 8;
+					Temp3_3[7] = modbus_CRC;
+
+					Serial2.write(Temp3_3, 8);//发送Y23_OFF
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_3_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了4通道温度期望的设定
+				else if (USBREceive_Data[19] == '4' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_4[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_4[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_4, length);//得到modbus_CRC的值
+					Temp3_4[6] = modbus_CRC >> 8;
+					Temp3_4[7] = modbus_CRC;
+
+					Serial2.write(Temp3_4, 8);//发送Y23_OFF
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_4_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了5通道温度期望的设定
+				else if (USBREceive_Data[19] == '5' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_5[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_5[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_5, length);//得到modbus_CRC的值
+					Temp3_5[6] = modbus_CRC >> 8;
+					Temp3_5[7] = modbus_CRC;
+
+					Serial2.write(Temp3_5, 8);//发送Y23_OFF
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_5_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了6通道温度期望的设定
+				else if (USBREceive_Data[19] == '6' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_6[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_6[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_6, length);//得到modbus_CRC的值
+					Temp3_6[6] = modbus_CRC >> 8;
+					Temp3_6[7] = modbus_CRC;
+
+					Serial2.write(Temp3_6, 8);//发送Temp3_6
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_6_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了7通道温度期望的设定
+				else if (USBREceive_Data[19] == '7' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_7[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_7[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_7, length);//得到modbus_CRC的值
+					Temp3_7[6] = modbus_CRC >> 8;
+					Temp3_7[7] = modbus_CRC;
+
+					Serial2.write(Temp3_7, 8);//发送Temp3_7
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_7_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了8通道温度期望的设定
+				else if (USBREceive_Data[19] == '8' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp3_8[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp3_8[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp3_8, length);//得到modbus_CRC的值
+					Temp3_8[6] = modbus_CRC >> 8;
+					Temp3_8[7] = modbus_CRC;
+
+					Serial2.write(Temp3_8, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_8_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了9通道温度期望的设定
+				else if (USBREceive_Data[19] == '9' && USBREceive_Data[20] == '_')
+				{
+					TempDesired = ((USBREceive_Data[33] - 48) * 1000) + ((USBREceive_Data[34] - 48) * 100) + ((USBREceive_Data[35] - 48) * 10) + (USBREceive_Data[36] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_1[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_1[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_1, length);//得到modbus_CRC的值
+					Temp4_1[6] = modbus_CRC >> 8;
+					Temp4_1[7] = modbus_CRC;
+
+					Serial2.write(Temp4_1, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_9_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了10通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '0' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_2[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_2[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_2, length);//得到modbus_CRC的值
+					Temp4_2[6] = modbus_CRC >> 8;
+					Temp4_2[7] = modbus_CRC;
+
+					Serial2.write(Temp4_2, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_10_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了11通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '1' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_3[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_3[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_3, length);//得到modbus_CRC的值
+					Temp4_3[6] = modbus_CRC >> 8;
+					Temp4_3[7] = modbus_CRC;
+
+					Serial2.write(Temp4_3, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_11_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了12通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '2' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_4[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_4[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_4, length);//得到modbus_CRC的值
+					Temp4_4[6] = modbus_CRC >> 8;
+					Temp4_4[7] = modbus_CRC;
+
+					Serial2.write(Temp4_4, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_12_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了13通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '3' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_5[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_5[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_5, length);//得到modbus_CRC的值
+					Temp4_5[6] = modbus_CRC >> 8;
+					Temp4_5[7] = modbus_CRC;
+
+					Serial2.write(Temp4_5, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_13_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了14通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '4' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_6[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_6[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_6, length);//得到modbus_CRC的值
+					Temp4_6[6] = modbus_CRC >> 8;
+					Temp4_6[7] = modbus_CRC;
+
+					Serial2.write(Temp4_6, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_14_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了15通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '5' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_7[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_7[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_7, length);//得到modbus_CRC的值
+					Temp4_7[6] = modbus_CRC >> 8;
+					Temp4_7[7] = modbus_CRC;
+
+					Serial2.write(Temp4_7, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_15_TempDesired_OK"));//回执信息
+					}
+				}
+				//判断进入了16通道温度期望的设定
+				else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '6' && USBREceive_Data[21] == '_')
+				{
+					TempDesired = ((USBREceive_Data[34] - 48) * 1000) + ((USBREceive_Data[35] - 48) * 100) + ((USBREceive_Data[36] - 48) * 10) + (USBREceive_Data[37] - 48);
+					Serial.print("TempDesired = ");//输出TempDesired
+					Serial.println(TempDesired);
+
+					ptrc = Character_processing(TempDesired);
+
+					Temp4_8[4] = *(ptrc + 0);
+					/*Serial.print("Temp3_1[4] = ");
+					Serial.println(Temp3_1[4]);*/
+					Temp4_8[5] = *(ptrc + 1);
+					/*Serial.print("Temp3_1[5] = ");
+					Serial.println(Temp3_1[5]);*/
+
+					modbus_CRC = N_CRC16(Temp4_8, length);//得到modbus_CRC的值
+					Temp4_8[6] = modbus_CRC >> 8;
+					Temp4_8[7] = modbus_CRC;
+
+					Serial2.write(Temp4_8, 8);//发送Temp3_8
+
+					if (modbus_CRC == RS485Receive_information())
+					{
+						Serial.println(String("RESP_HeatingJackets_16_TempDesired_OK"));//回执信息
+					}
 				}
 			}
 			//判断进入设置上限值

@@ -9,17 +9,19 @@ Serial2.write(Y23_OFF, 8);//发送Y23_OFF
 Upper temperature limit//温度上限
 Lower temperature limit//温度下限
 
-SET_MacValve_1_ON//开继电器
-SET_MacValve_1_OFF//关继电器
-GET_MacValve_1_Status//得到继电器的状态
-SET_MFC_1_Open//开MFC
-SET_MFC_1_Close//关MFC
-SET_MFC_1_GAS_1000// 1000 means 1sccm
-GET_MFC_1_GAS//得到MFC的流量
-GET_MFC_1_Status//得到MFC的状态
-SET_HeatingJackets_TempUppLimit_Value//设定温度上限值
-SET_HeatingJackets_TempLowLimit_Value//设定温度下限值
-SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度，Value是期望得到的温度值
+SET_MacValve_1_ON//开继电器1					回执：RESP_MacValve_1_ON
+SET_MacValve_1_OFF//关继电器1					回执：RESP_MacValve_1_OFF
+GET_MacValve_1_Status//得到继电器的状态			回执：RESP_MacValve_1_Value		// Value 為 ON / OFF
+
+SET_MFC_1_Open//开MFC							回执：RESP_MFC_1_Open
+SET_MFC_1_Close//关MFC							回执：RESP_MFC_1_Close
+SET_MFC_1_GAS_1000// 1000 means 1sccm			回执：RESP_MFC_1_GAS_1000
+GET_MFC_1_GAS//得到MFC的流量					回执：RESP_MFC_1_GAS_Value		// Value 為數值
+GET_MFC_1_Status//得到MFC的状态					回执：RESP_MFC_1_Status_Value	// Value 為 ON / OFF
+
+SET_HeatingJackets_TempUppLimit_Value//设定温度上限值	Value 為數值，最小为0000，最大为9999
+SET_HeatingJackets_TempLowLimit_Value//设定温度下限值	同上，当温度需要设置为49℃，输入应为0490
+SET_HeatingJackets_1_TempDesired_Value//设定通道1期望保持的温度，Value是期望得到的温度值，同上
 SET_HeatingJackets_1_Heating//将通道1设置为加热模式
 SET_HeatingJackets_1_Cooling//将通道1设置为制冷模式
 GET_HeatingJackets_1_Temp//得到通道1的测量温度

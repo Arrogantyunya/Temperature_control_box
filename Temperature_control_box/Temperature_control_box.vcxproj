@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MODBUS_RTU_CRC16.h" />
+    <ClInclude Include="user_Character.h" />
     <ClInclude Include="user_crc8.h" />
     <ClInclude Include="user_DECtoHEX.h" />
     <ClInclude Include="user_HEXtoDEC.h" />
@@ -116,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MODBUS_RTU_CRC16.cpp" />
+    <ClCompile Include="user_Character.cpp" />
     <ClCompile Include="user_crc8.cpp" />
     <ClCompile Include="user_DECtoHEX.cpp" />
     <ClCompile Include="user_HEXtoDEC.cpp" />
