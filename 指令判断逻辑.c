@@ -6,7 +6,7 @@
 //继电器相关
 SET_MacValve_1_ON		//开继电器			01 05 0000 FF00
 SET_MacValve_1_OFF		//关继电器			01 05 0000 0000
-GET_MacValve_1_Status	//得到继电器的状态	01 01 0000 0001
+GET_MacValve_1_Status	//得到继电器的状态	01 01 0000 0008
 
 //MFC相关
 SET_MFC_1_Open//开MFC
