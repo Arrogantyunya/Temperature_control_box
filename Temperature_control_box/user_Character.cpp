@@ -16,10 +16,14 @@ char * pttarr = NULL;
 //char big_buffer[33]; //用于存放转换好的十六进制字符串。由于只要支持2位整数，所以长度3即可
 
 
-//
+//函数名称：char * Character_processing(int x)
+//函数功能：通过传入一个10进制的int型,然后按字节返回16进制的char型数组（例如）
+//调用函数：char * inttohex2(int aa)
+//函数说明：暂时只能传入不大于的65535(0xFFFF)的int型，超出时会截取不完全。
+//返回值：返回16进制的char型数组，static char val_buff[2];
 char * Character_processing(int x)
 {
-	pttarr = inttohex2(x);
+	pttarr = inttohex2(x);//对传入的int型10进制x转换成char型的HEX的字符
 	Serial.print("inttohex2(x) = ");
 	Serial.println(inttohex2(x));
 

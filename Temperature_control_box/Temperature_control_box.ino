@@ -179,6 +179,7 @@ static unsigned short length = 6;
 
 static int modbus_CRC = 0x00;
 static int RS485_CRC = 0x00;
+static int RS485_Temp = 0;
 static unsigned char RS485REceive_Data[50];
 static int RS485REceive_Length = 0;
 static unsigned char USBREceive_Data[50];
@@ -304,6 +305,98 @@ int RS485Receive_information(void)
 		RS485REceive_Length = 0;
 	}
 	return RS485_CRC;
+}
+
+int RS485Receive_Temp(void)
+{
+	RS485REceive_Length = 0;
+	delay(500);
+	while (Serial2.available() > 0)
+	{
+		RS485REceive_Data[RS485REceive_Length++] = Serial2.read();
+		Serial.print(RS485REceive_Data[RS485REceive_Length - 1], HEX);
+		Serial.print(" ");
+	}
+	if (RS485REceive_Length > 0)
+	{
+		Serial.println("");
+		Serial.print("RS485REceive_Length = ");
+		Serial.println(RS485REceive_Length);
+		for (int i = 0; i < RS485REceive_Length; i++)
+		{
+			Serial.print(String("RS485REceive_Data") + "[ " + i + " ] =");
+			Serial.println(RS485REceive_Data[i], HEX);
+		}
+
+		RS485_CRC = N_CRC16(RS485REceive_Data, RS485REceive_Length - 2);
+		Serial.print("RS485_CRC = ");
+		Serial.println(RS485_CRC, HEX);
+
+		String STRRS485_CRC = String(RS485_CRC,HEX);//将int型16进制的RS485_CRC的值转换为string类型
+		//RS485REceive_Data[5] = 0x00;
+		//RS485REceive_Data[6] = 0x00;
+		String strrs485_crc = String(RS485REceive_Data[5], HEX) + String(RS485REceive_Data[6], HEX);//将设备返回的啥转换为string类型
+
+		/*strrs485_crc = String(0, HEX) + String(0, HEX) + String(0, HEX) + String(0, HEX);
+		Serial.print("strrs485_crc = ");
+		Serial.println(strrs485_crc);
+		Serial.println("------------------");*/
+
+		//boolean startssWith(string)	开始
+		//Serial.println(str.startsWith("FE"));//判断字符串是否是以FE开始
+
+		if (strrs485_crc.startsWith("0"))
+		{
+			//Serial.println("000000000000000");
+			strrs485_crc.remove(0, 1);
+		}
+		//=======================测试所用的代码=====================================
+		//int count = 0;//用于计数，如果crc校验码出现了4个0，则为了不被while循环全部清除
+		//while ((strrs485_crc.startsWith("0")) && (count != 1))
+		//{
+		//	Serial.println("000000000000000");
+		//	strrs485_crc.remove(0, 1);
+		//	count++;
+		//}
+		//if (count == 4)
+		//{
+		//	strrs485_crc = String(0, HEX);
+		//}
+		//=======================================================================
+
+
+		Serial.print("STRRS485_CRC = ");
+		Serial.println(STRRS485_CRC);
+		Serial.print("strrs485_crc = ");
+		Serial.println(strrs485_crc);
+
+		//str.equals用于验证两个字符串是否相等，相同返回真，不同返回假
+		if (STRRS485_CRC == strrs485_crc)
+		{
+			Serial.println("crc校验通过");
+
+			String strabc;
+			//char const *c = str.c_str();
+			strabc = String(RS485REceive_Data[3], HEX) + String(RS485REceive_Data[4], HEX);
+			
+			int strabc_length = strabc.length();
+			char shuzu2[4];
+			strabc.toCharArray(shuzu2, (strabc_length + 1));//只能处理到4个字符 
+			for (int i = 0; i < strabc_length; i++)
+			{
+				Serial.print(String("shuzu2") + "[ " + i + " ] =");
+				Serial.println(shuzu2[i]);
+			}
+			RS485_Temp = charhex_to_dec(shuzu2);//int charhex_to_dec(char *chr)
+			Serial.print("RS485_Temp = ");
+			Serial.println(RS485_Temp);
+
+			RS485REceive_Length = 0;
+
+			return RS485_Temp;
+		}
+	}
+	return -1;
 }
 
 int LORAReceive_information(void)
@@ -1178,7 +1271,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc  = Character_processing(TempDesired);
+					ptrc  = Character_processing(TempDesired);//输出TempDesired
 
 					Temp3_1[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1191,7 +1284,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_1[6] = modbus_CRC >> 8;
 					Temp3_1[7] = modbus_CRC;
 
-					Serial2.write(Temp3_1, 8);//发送Y23_OFF
+					Serial2.write(Temp3_1, 8);//发送Temp3_1
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1205,7 +1298,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//输出TempDesired
 
 					Temp3_2[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1218,7 +1311,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_2[6] = modbus_CRC >> 8;
 					Temp3_2[7] = modbus_CRC;
 
-					Serial2.write(Temp3_2, 8);//发送Y23_OFF
+					Serial2.write(Temp3_2, 8);//发送Temp3_2
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1232,7 +1325,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//输出TempDesired
 
 					Temp3_3[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1245,7 +1338,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_3[6] = modbus_CRC >> 8;
 					Temp3_3[7] = modbus_CRC;
 
-					Serial2.write(Temp3_3, 8);//发送Y23_OFF
+					Serial2.write(Temp3_3, 8);//发送Temp3_3
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1259,7 +1352,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的按字节的char数组
 
 					Temp3_4[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1272,7 +1365,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_4[6] = modbus_CRC >> 8;
 					Temp3_4[7] = modbus_CRC;
 
-					Serial2.write(Temp3_4, 8);//发送Y23_OFF
+					Serial2.write(Temp3_4, 8);//发送Temp3_4
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1286,7 +1379,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp3_5[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1299,7 +1392,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_5[6] = modbus_CRC >> 8;
 					Temp3_5[7] = modbus_CRC;
 
-					Serial2.write(Temp3_5, 8);//发送Y23_OFF
+					Serial2.write(Temp3_5, 8);//发送Temp3_5
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1313,7 +1406,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp3_6[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1340,7 +1433,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp3_7[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1367,7 +1460,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp3_8[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1394,7 +1487,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_1[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1407,7 +1500,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_1[6] = modbus_CRC >> 8;
 					Temp4_1[7] = modbus_CRC;
 
-					Serial2.write(Temp4_1, 8);//发送Temp3_8
+					Serial2.write(Temp4_1, 8);//发送Temp4_1
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1421,7 +1514,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_2[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1434,7 +1527,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_2[6] = modbus_CRC >> 8;
 					Temp4_2[7] = modbus_CRC;
 
-					Serial2.write(Temp4_2, 8);//发送Temp3_8
+					Serial2.write(Temp4_2, 8);//发送Temp4_2
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1448,7 +1541,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_3[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1461,7 +1554,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_3[6] = modbus_CRC >> 8;
 					Temp4_3[7] = modbus_CRC;
 
-					Serial2.write(Temp4_3, 8);//发送Temp3_8
+					Serial2.write(Temp4_3, 8);//发送Temp4_3
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1475,7 +1568,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_4[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1488,7 +1581,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_4[6] = modbus_CRC >> 8;
 					Temp4_4[7] = modbus_CRC;
 
-					Serial2.write(Temp4_4, 8);//发送Temp3_8
+					Serial2.write(Temp4_4, 8);//发送Temp4_4
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1502,7 +1595,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_5[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1515,7 +1608,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_5[6] = modbus_CRC >> 8;
 					Temp4_5[7] = modbus_CRC;
 
-					Serial2.write(Temp4_5, 8);//发送Temp3_8
+					Serial2.write(Temp4_5, 8);//发送Temp4_5
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1529,7 +1622,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_6[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1542,7 +1635,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_6[6] = modbus_CRC >> 8;
 					Temp4_6[7] = modbus_CRC;
 
-					Serial2.write(Temp4_6, 8);//发送Temp3_8
+					Serial2.write(Temp4_6, 8);//发送Temp4_6
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1556,7 +1649,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_7[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1569,7 +1662,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_7[6] = modbus_CRC >> 8;
 					Temp4_7[7] = modbus_CRC;
 
-					Serial2.write(Temp4_7, 8);//发送Temp3_8
+					Serial2.write(Temp4_7, 8);//发送Temp4_7
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1583,7 +1676,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc = Character_processing(TempDesired);
+					ptrc = Character_processing(TempDesired);//得到16进制的byte数组
 
 					Temp4_8[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1596,7 +1689,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp4_8[6] = modbus_CRC >> 8;
 					Temp4_8[7] = modbus_CRC;
 
-					Serial2.write(Temp4_8, 8);//发送Temp3_8
+					Serial2.write(Temp4_8, 8);//发送Temp4_8
 
 					if (modbus_CRC == RS485Receive_information())
 					{
@@ -1715,21 +1808,158 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				 USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
 				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
 		{
-			//这里判断进入1通道
+			//这里判断进入查询温度1通道
 			if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
 			{
+				//读取1通道当前的温度
 				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
 					USBREceive_Data[24] == 'p')
 				{
-
+					Serial.println("读取1通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_1, length);//得到modbus_CRC的值
+					getT3_1[6] = modbus_CRC >> 8;
+					getT3_1[7] = modbus_CRC;
+					Serial2.write(getT3_1,8);//发送温度1通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_1_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_1_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_1_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_1_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_1_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_1_Temp_"+String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_1_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_1_Temp_ERROR"));//回执信息
+					}
 				}
 			}
-			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
+			//这里判断进入查询温度2通道
+			else if (USBREceive_Data[19] == '2' && USBREceive_Data[20] == '_')
 			{
 				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
 					USBREceive_Data[24] == 'p')
 				{
-					
+					Serial.println("读取2通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_2, length);//得到modbus_CRC的值
+					getT3_2[6] = modbus_CRC >> 8;
+					getT3_2[7] = modbus_CRC;
+					Serial2.write(getT3_2, 8);//发送温度1通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_2_Temp_HH
+							//通道2温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_2_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_2_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_2_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_2_Temp_Value 	
+							//通道2温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_2_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_2_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_2_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度3通道
+			else if (USBREceive_Data[19] == '3' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取3通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_3, length);//得到modbus_CRC的值
+					getT3_3[6] = modbus_CRC >> 8;
+					getT3_3[7] = modbus_CRC;
+					Serial2.write(getT3_3, 8);//发送温度1通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_3_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_3_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_1_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_3_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_3_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_3_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_1_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_1_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度4通道
+			else if (USBREceive_Data[19] == '4' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial2.write(getT3_4, 8);//发送温度2通道的查询指令
 				}
 			}
 		}

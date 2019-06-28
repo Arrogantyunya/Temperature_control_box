@@ -87,8 +87,16 @@ RESP_HeatingJackets_2_Cooling_ERR//通道2设置制冷模式失败回执
 
 //得到通道X的测量温度，2级私有参数，查询
 GET_HeatingJackets_1_Temp//得到通道1的测量温度
-RESP_HeatingJackets_1_Temp_Value //通道1温度的回执，Value = 溫度數值
+RESP_HeatingJackets_1_Temp_Value 	//通道1温度的回执，Value = 溫度數值
+RESP_HeatingJackets_1_Temp_HH		//通道1温度的回执，HH表示超出上量程，请检查接线
+RESP_HeatingJackets_1_Temp_LL		//通道1温度的回执，LL表示超出下量程，请检查接线
+RESP_HeatingJackets_1_Temp_ERROR	//通道1温度的回执，ERROR表示失败，请重新读取
 
 GET_HeatingJackets_2_Temp//得到通道2的测量温度
-RESP_HeatingJackets_2_Temp_Value //通道2温度的回执，Value = 溫度數值
+RESP_HeatingJackets_2_Temp_Value 	//通道2温度的回执，Value = 溫度數值
+RESP_HeatingJackets_2_Temp_ERROR	//通道2温度的回执，ERROR表示失败，请重新读取
 //---------------------------------------------------------------------------//
+
+
+
+

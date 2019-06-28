@@ -49,8 +49,8 @@ int charhex_to_dec(char *chr)
 	int chrtoint = 0;
 	int value = 0;
 
-	/*chrlen = strlen(chr);*/
-	chrlen = 4;
+	chrlen = strlen(chr);//自动获取需要转换的字符个数
+	//chrlen = 3;//这是传入的字符个数，根据需要更改
 
 	//检查字符串是否是以0x或者0X开头的。
 	if ((chr[0] == '0') && ((chr[1] == 'x') || (chr[1] == 'X')))
