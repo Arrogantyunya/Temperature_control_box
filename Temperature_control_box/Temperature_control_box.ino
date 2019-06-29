@@ -2007,6 +2007,122 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				//Serial.print("MacStatus = ");
 				//Serial.println(MacStatus)
 			}
+			//这里判断为5继电器的查询
+			else if (USBREceive_Data[13] == '5'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+				Serial.println("读取继电器5当前的状态");
+				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
+				getY1[6] = modbus_CRC >> 8;
+				getY1[7] = modbus_CRC;
+				Serial2.write(getY1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(5);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_5_Value
+					Serial.println(String("RESP_MacValve_5_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_5_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_4_ERROR
+					Serial.println(String("RESP_MacValve_5_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为6继电器的查询
+			else if (USBREceive_Data[13] == '6'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+				Serial.println("读取继电器6当前的状态");
+				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
+				getY1[6] = modbus_CRC >> 8;
+				getY1[7] = modbus_CRC;
+				Serial2.write(getY1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(6);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_6_Value
+					Serial.println(String("RESP_MacValve_6_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_6_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_6_ERROR
+					Serial.println(String("RESP_MacValve_6_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为7继电器的查询
+			else if (USBREceive_Data[13] == '7'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+				Serial.println("读取继电器7当前的状态");
+				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
+				getY1[6] = modbus_CRC >> 8;
+				getY1[7] = modbus_CRC;
+				Serial2.write(getY1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(7);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_7_Value
+					Serial.println(String("RESP_MacValve_7_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_7_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_7_ERROR
+					Serial.println(String("RESP_MacValve_7_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为8继电器的查询
+			else if (USBREceive_Data[13] == '8'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+				Serial.println("读取继电器8当前的状态");
+				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
+				getY1[6] = modbus_CRC >> 8;
+				getY1[7] = modbus_CRC;
+				Serial2.write(getY1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(8);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_8_Value
+					Serial.println(String("RESP_MacValve_8_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_8_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_8_ERROR
+					Serial.println(String("RESP_MacValve_8_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
 		}
 		//这里判断进入了温度通道
 		else if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
@@ -2074,7 +2190,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					modbus_CRC = N_CRC16(getT3_2, length);//得到modbus_CRC的值
 					getT3_2[6] = modbus_CRC >> 8;
 					getT3_2[7] = modbus_CRC;
-					Serial2.write(getT3_2, 8);//发送温度1通道的查询指令
+					Serial2.write(getT3_2, 8);//发送温度2通道的查询指令
 					Temp_Measure = RS485Receive_Temp();
 					if (Temp_Measure != -1)
 					{
@@ -2122,7 +2238,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					modbus_CRC = N_CRC16(getT3_3, length);//得到modbus_CRC的值
 					getT3_3[6] = modbus_CRC >> 8;
 					getT3_3[7] = modbus_CRC;
-					Serial2.write(getT3_3, 8);//发送温度1通道的查询指令
+					Serial2.write(getT3_3, 8);//发送温度3通道的查询指令
 					Temp_Measure = RS485Receive_Temp();
 					if (Temp_Measure != -1)
 					{
@@ -2154,9 +2270,9 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					else
 					{
 						Serial.println("crc校验未通过，无法得到数据");
-						//RESP_HeatingJackets_1_Temp_ERROR	
+						//RESP_HeatingJackets_3_Temp_ERROR	
 						//通道1温度的回执，ERROR表示失败，请重新读取
-						Serial.println(String("RESP_HeatingJackets_1_Temp_ERROR"));//回执信息
+						Serial.println(String("RESP_HeatingJackets_3_Temp_ERROR"));//回执信息
 					}
 				}
 			}
@@ -2166,7 +2282,622 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
 					USBREceive_Data[24] == 'p')
 				{
-					Serial2.write(getT3_4, 8);//发送温度2通道的查询指令
+					Serial.println("读取4通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_4, length);//得到modbus_CRC的值
+					getT3_4[6] = modbus_CRC >> 8;
+					getT3_4[7] = modbus_CRC;
+					Serial2.write(getT3_4, 8);//发送温度4通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_4_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_4_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_4_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_4_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_4_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_4_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_4_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_4_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度5通道
+			else if (USBREceive_Data[19] == '5' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取5通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_5, length);//得到modbus_CRC的值
+					getT3_5[6] = modbus_CRC >> 8;
+					getT3_5[7] = modbus_CRC;
+					Serial2.write(getT3_5, 8);//发送温度5通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_5_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_5_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_5_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_5_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_5_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_5_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets__Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_5_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度6通道
+			else if (USBREceive_Data[19] == '6' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取6通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_6, length);//得到modbus_CRC的值
+					getT3_6[6] = modbus_CRC >> 8;
+					getT3_6[7] = modbus_CRC;
+					Serial2.write(getT3_6, 8);//发送温度6通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_6_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_6_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_6_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_6_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_6_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_6_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_6_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_6_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度7通道
+			else if (USBREceive_Data[19] == '7' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取7通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_7, length);//得到modbus_CRC的值
+					getT3_7[6] = modbus_CRC >> 8;
+					getT3_7[7] = modbus_CRC;
+					Serial2.write(getT3_7, 8);//发送温度7通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_7_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_7_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_7_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_7_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_7_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_7_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_7_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_7_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度8通道
+			else if (USBREceive_Data[19] == '8' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取8通道当前的温度");
+					modbus_CRC = N_CRC16(getT3_8, length);//得到modbus_CRC的值
+					getT3_8[6] = modbus_CRC >> 8;
+					getT3_8[7] = modbus_CRC;
+					Serial2.write(getT3_8, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_8_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_8_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_8_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_8_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_8_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_8_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_8_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_8_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度9通道
+			else if (USBREceive_Data[19] == '9' && USBREceive_Data[20] == '_')
+			{
+				if (USBREceive_Data[21] == 'T' && USBREceive_Data[22] == 'e' && USBREceive_Data[23] == 'm' &&
+					USBREceive_Data[24] == 'p')
+				{
+					Serial.println("读取9通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_1, length);//得到modbus_CRC的值
+					getT4_1[6] = modbus_CRC >> 8;
+					getT4_1[7] = modbus_CRC;
+					Serial2.write(getT4_1, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_9_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_9_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_9_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_9_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_9_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_9_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_9_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_9_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度10通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '0' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取10通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_2, length);//得到modbus_CRC的值
+					getT4_2[6] = modbus_CRC >> 8;
+					getT4_2[7] = modbus_CRC;
+					Serial2.write(getT4_2, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_10_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_10_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_10_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_10_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_10_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_10_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_10_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_10_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度11通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '1' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取11通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_3, length);//得到modbus_CRC的值
+					getT4_3[6] = modbus_CRC >> 8;
+					getT4_3[7] = modbus_CRC;
+					Serial2.write(getT4_3, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_11_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_11_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_11_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_11_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_11_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_11_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_11_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_11_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度12通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '2' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取12通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_4, length);//得到modbus_CRC的值
+					getT4_4[6] = modbus_CRC >> 8;
+					getT4_4[7] = modbus_CRC;
+					Serial2.write(getT4_4, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_12_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_12_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_12_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_12_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_12_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_12_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_12_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_12_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度13通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '3' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取12通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_5, length);//得到modbus_CRC的值
+					getT4_5[6] = modbus_CRC >> 8;
+					getT4_5[7] = modbus_CRC;
+					Serial2.write(getT4_5, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_13_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_13_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_13_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_13_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_13_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_13_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_13_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_13_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度14通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '4' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取14通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_6, length);//得到modbus_CRC的值
+					getT4_6[6] = modbus_CRC >> 8;
+					getT4_6[7] = modbus_CRC;
+					Serial2.write(getT4_6, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_14_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_14_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_14_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_14_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_14_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_14_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_14_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_14_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度15通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '5' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取15通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_7, length);//得到modbus_CRC的值
+					getT4_7[6] = modbus_CRC >> 8;
+					getT4_7[7] = modbus_CRC;
+					Serial2.write(getT4_7, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_15_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_15_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_15_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_15_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_15_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_15_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_15_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_15_Temp_ERROR"));//回执信息
+					}
+				}
+			}
+			//这里判断进入查询温度16通道
+			else if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '6' && USBREceive_Data[21] == '_')
+			{
+				if (USBREceive_Data[22] == 'T' && USBREceive_Data[23] == 'e' && USBREceive_Data[24] == 'm' &&
+					USBREceive_Data[25] == 'p')
+				{
+					Serial.println("读取16通道当前的温度");
+					modbus_CRC = N_CRC16(getT4_8, length);//得到modbus_CRC的值
+					getT4_8[6] = modbus_CRC >> 8;
+					getT4_8[7] = modbus_CRC;
+					Serial2.write(getT4_8, 8);//发送温度8通道的查询指令
+					Temp_Measure = RS485Receive_Temp();
+					if (Temp_Measure != -1)
+					{
+						if (Temp_Measure == 0x7FFF)
+						{
+							Serial.println("HH超上量程");
+							Serial.println("0x7FFF");
+							//RESP_HeatingJackets_16_Temp_HH
+							//通道1温度的回执，HH表示超出上量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_16_Temp_HH"));//回执信息
+						}
+						else if (Temp_Measure == 0x7F00)
+						{
+							Serial.println("LL超下量程");
+							Serial.println("0x7F00");
+							//RESP_HeatingJackets_16_Temp_LL		
+							//通道1温度的回执，LL表示超出下量程，请检查接线
+							Serial.println(String("RESP_HeatingJackets_16_Temp_LL"));//回执信息
+						}
+						else
+						{
+							Serial.print("Temp_Measure = ");
+							Serial.println(Temp_Measure);
+							//RESP_HeatingJackets_16_Temp_Value 	
+							//通道1温度的回执，Value = 溫度數值
+							Serial.println(String("RESP_HeatingJackets_16_Temp_" + String(Temp_Measure)));//回执信息
+						}
+					}
+					else
+					{
+						Serial.println("crc校验未通过，无法得到数据");
+						//RESP_HeatingJackets_16_Temp_ERROR	
+						//通道1温度的回执，ERROR表示失败，请重新读取
+						Serial.println(String("RESP_HeatingJackets_16_Temp_ERROR"));//回执信息
+					}
 				}
 			}
 		}
