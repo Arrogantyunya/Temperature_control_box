@@ -1,0 +1,17 @@
+1.Value Test Point		1.数值测试点
+2.Flow Signal out 		2.流量信号输出
+3.Valve close		3.阀门关闭
+4.Valve Open		4.阀门打开		
+5.Power common		5.电源公共端
+6.No Connection		6.无连接
+
+
+7.+15 to +24 VDC		7.+15至+24 V直流
+8.Setpoint Input		8.设定值输入
+9.Flow Zero		9.流量零点
+10.Optional Input		10.可选输入
+11.Signal Common		11.信号公用
+12.Signal Common		12.信号公用
+13.No Connection		13.无连接
+14.No Connection		14.无连接
+15.Chassis Ground		15.外壳接地
