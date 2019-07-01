@@ -83,7 +83,7 @@ static unsigned char Y22_OFF[8] = { 0x02,0x05,0x00,0x0E,0x00,0x00 };
 static unsigned char Y23_ON[8] = { 0x02,0x05,0x00,0x0F,0xFF,0x00 };
 static unsigned char Y23_OFF[8] = { 0x02,0x05,0x00,0x0F,0x00,0x00 };
 static unsigned char getY2_1[8] = { 0x02,0x01,0x00,0x00,0x00,0x08 };//01 01 0000 0008
-static unsigned char getY2_2[8] = { 0x02,0x01,0x00,0x01,0x00,0x08 };//01 01 0001 0008
+static unsigned char getY2_2[8] = { 0x02,0x01,0x00,0x08,0x00,0x08 };//01 01 0008 0008
 
 
 
@@ -456,7 +456,7 @@ int RS485Receive_Temp(void)
 	return -1;
 }
 
-//得到继电器状态
+//得到继电器1-16的状态
 int RS485Receive_MacStatus(int x)
 {
 	int Status = 0;
@@ -490,6 +490,24 @@ int RS485Receive_MacStatus(int x)
 		{
 			strrs485_crc.remove(0, 1);
 		}
+		if (STRRS485_CRC.length() == 4)//字符串长度为4
+		{
+			if ((STRRS485_CRC.substring(2, 3)) == String(0))
+			{
+				//Serial.println("(STRRS485_CRC.substring(2, 3)) == String(0)");
+				STRRS485_CRC.remove(2, 1);
+			}
+		}
+		//这里是为了消除STRRS485_CRC第1位的0，假如为校验码为0101，则STRRS485_CRC = 101，但是strrs485_crc = 11
+		//所以就将STRRS485_CRC第1位的0删除，改为11
+		else if (STRRS485_CRC.length() == 3)//字符串长度为3
+		{
+			if ((STRRS485_CRC.substring(1, 2)) == String(0))
+			{
+				//Serial.println("(STRRS485_CRC.substring(1, 2)) == String(0)");
+				STRRS485_CRC.remove(1, 1);
+			}
+		}
 
 		Serial.print("STRRS485_CRC = ");
 		Serial.println(STRRS485_CRC);
@@ -508,38 +526,46 @@ int RS485Receive_MacStatus(int x)
 			Serial.print("strbcd = ");
 			Serial.println(strbcd);
 
-			unsigned char shuzu1[8] = { '0','0','0','0','0','0','0','0' };
-			unsigned char shu1zu[8] = { '0','0','0','0','0','0','0','0' };//用来反序的数组
-			unsigned char shuzu2[8] = { '0','0','0','0','0','0','0','0' };
+			//数组创建为9位是为了将/0包含，方便getBytes处理
+			unsigned char shuzu1[9] = { '0','0','0','0','0','0','0','0',0 };//用来存放getbytes处理后的数据
+			unsigned char shu1zu[9] = { '0','0','0','0','0','0','0','0',0 };//用来反序的数组，一个桶
+			unsigned char shuzu2[9] = { '0','0','0','0','0','0','0','0',0 };//反序后存放真正需要数据的数组
+			//unsigned char shuzu1[8] = { '0','0','0','0','0','0','0','0'};//用来存放getbytes处理后的数据
+			//unsigned char shu1zu[8] = { '0','0','0','0','0','0','0','0'};//用来反序的数组，一个桶
+			//unsigned char shuzu2[8] = { '0','0','0','0','0','0','0','0'};//反序后存放真正需要数据的数组
+
 			/*for (int i = 0; i < 8; i++)
 			{
 				Serial.print(String("shuzu2") + "[ " + i + " ] =");
 				Serial.println(shuzu2[i]);
 			}
 			Serial.println("--------------------------");*/
-			strbcd.getBytes(shuzu1, 9);//只能处理到8个字符 
+
+			strbcd.getBytes(shuzu1, 9);//只能处理到8个字符，因为结尾需要处理/0 
 			for (int i = 0; i < strbcd_length; i++)
 			{
-				//Serial.print(String("shuzu1") + "[ " + i + " ] =");
-				//Serial.println(shuzu1[i]);
+				/*Serial.print(String("shuzu1") + "[ " + i + " ] =");
+				Serial.println(shuzu1[i]);*/
 				shu1zu[strbcd_length - (i+1)] = shuzu1[i];//倒序
 				//shuzu2[i] = shuzu1[i];
+				delay(5);
 			}
-			//Serial.println("--------------------------");
+			Serial.println("--------------------------");
 			for (int i = 0; i < strbcd_length; i++)
 			{
 				/*Serial.print(String("shu1zu") + "[ " + i + " ] =");
 				Serial.println(shu1zu[i]);*/
 				shuzu2[i] = shu1zu[i];
 			}
-			/*Serial.println("--------------------------");
-			for (int i = 0; i < 8; i++)
+			//Serial.println();
+			//Serial.println("=====================");
+			/*for (int i = 0; i < 8; i++)
 			{
 				Serial.print(String("shuzu2") + "[ " + i + " ] =");
 				Serial.println(shuzu2[i]);
 			}*/
 
-			Status = shuzu2[x-1]-'0';
+			Status = shuzu2[x - 1] - '0';
 
 			RS485REceive_Length = 0;
 
@@ -548,6 +574,7 @@ int RS485Receive_MacStatus(int x)
 	}
 	return -1;
 }
+
 
 int LORAReceive_information(void)
 {
@@ -1969,6 +1996,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					//RESP_MacValve_1_ERROR
 					Serial.println(String("RESP_MacValve_1_ERROR"));//回执信息
 				}
+				else
+				{
+					Serial.println(String("aaaaaaaaaaaaa"));//回执信息
+				}
 				//Serial.print("MacStatus = ");
 				//Serial.println(MacStatus);
 			}
@@ -2171,6 +2202,470 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				{
 					//RESP_MacValve_8_ERROR
 					Serial.println(String("RESP_MacValve_8_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为9继电器的查询
+			else if (USBREceive_Data[13] == '9'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
+					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+			{
+				Serial.println("读取继电器9当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(1);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_9_Value
+					Serial.println(String("RESP_MacValve_9_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_9_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_9_ERROR
+					Serial.println(String("RESP_MacValve_9_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为10继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '0'	&&	USBREceive_Data[15] == '_'	&& 
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&& 
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器10当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(2);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_10_Value
+					Serial.println(String("RESP_MacValve_10_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_10_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_10_ERROR
+					Serial.println(String("RESP_MacValve_10_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为11继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '1'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器11当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(3);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_11_Value
+					Serial.println(String("RESP_MacValve_11_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_11_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_11_ERROR
+					Serial.println(String("RESP_MacValve_11_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为12继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '2'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器12当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(4);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_12_Value
+					Serial.println(String("RESP_MacValve_12_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_12_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_12_ERROR
+					Serial.println(String("RESP_MacValve_12_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为13继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '3'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器13当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(5);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_13_Value
+					Serial.println(String("RESP_MacValve_13_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_13_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_13_ERROR
+					Serial.println(String("RESP_MacValve_13_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为14继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '4'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器14当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(6);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_14_Value
+					Serial.println(String("RESP_MacValve_14_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_14_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_14_ERROR
+					Serial.println(String("RESP_MacValve_14_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为15继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '5'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器15当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(7);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_15_Value
+					Serial.println(String("RESP_MacValve_15_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_15_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_15_ERROR
+					Serial.println(String("RESP_MacValve_15_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为16继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '6'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器16当前的状态");
+				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
+				getY2_1[6] = modbus_CRC >> 8;
+				getY2_1[7] = modbus_CRC;
+				Serial2.write(getY2_1, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(8);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_16_Value
+					Serial.println(String("RESP_MacValve_16_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_16_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_16_ERROR
+					Serial.println(String("RESP_MacValve_16_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为17继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '7'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器17当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(1);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_17_Value
+					Serial.println(String("RESP_MacValve_17_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_17_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_17_ERROR
+					Serial.println(String("RESP_MacValve_17_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为18继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '8'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器18当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(2);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_18_Value
+					Serial.println(String("RESP_MacValve_18_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_18_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_18_ERROR
+					Serial.println(String("RESP_MacValve_18_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为19继电器的查询
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '9'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器19当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(3);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_19_Value
+					Serial.println(String("RESP_MacValve_19_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_19_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_19_ERROR
+					Serial.println(String("RESP_MacValve_19_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为20继电器的查询
+			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '0'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器20当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(4);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_20_Value
+					Serial.println(String("RESP_MacValve_20_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_20_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_20_ERROR
+					Serial.println(String("RESP_MacValve_20_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为21继电器的查询
+			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '1'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器21当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(5);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_21_Value
+					Serial.println(String("RESP_MacValve_21_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_21_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_21_ERROR
+					Serial.println(String("RESP_MacValve_21_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为22继电器的查询
+			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '2'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器22当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(6);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_22_Value
+					Serial.println(String("RESP_MacValve_22_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_22_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_22_ERROR
+					Serial.println(String("RESP_MacValve_22_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为23继电器的查询
+			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '3'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器23当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(7);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_23_Value
+					Serial.println(String("RESP_MacValve_23_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_23_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_23_ERROR
+					Serial.println(String("RESP_MacValve_23_ERROR"));//回执信息
+				}
+				//Serial.print("MacStatus = ");
+				//Serial.println(MacStatus)
+			}
+			//这里判断为24继电器的查询
+			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '4'	&&	USBREceive_Data[15] == '_'	&&
+					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			{
+				Serial.println("读取继电器24当前的状态");
+				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
+				getY2_2[6] = modbus_CRC >> 8;
+				getY2_2[7] = modbus_CRC;
+				Serial2.write(getY2_2, 8);//发送继电器的查询指令
+				MacStatus = RS485Receive_MacStatus(8);
+
+				if (MacStatus == 1)
+				{
+					//RESP_MacValve_24_Value
+					Serial.println(String("RESP_MacValve_24_ON"));//回执信息
+				}
+				else if (MacStatus == 0)
+				{
+					Serial.println(String("RESP_MacValve_24_OFF"));//回执信息
+				}
+				else if (MacStatus == -1)
+				{
+					//RESP_MacValve_24_ERROR
+					Serial.println(String("RESP_MacValve_24_ERROR"));//回执信息
 				}
 				//Serial.print("MacStatus = ");
 				//Serial.println(MacStatus)
