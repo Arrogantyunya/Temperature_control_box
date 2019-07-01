@@ -23,8 +23,8 @@
 #include "user_test.h"
 #include "user_HEXtoDEC.h"
 #include "user_DECtoHEX.h"
-#include"user_initialization.h"	//初始化函数
-#include"MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
+#include "user_initialization.h"	//初始化函数
+#include "MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
 #include "user_DECtoHEX.h"
 //#include "user_Binary_conversion.h"//进制转换函数，这个库有问题，添加了导致程序下载不了
 
@@ -334,12 +334,22 @@ int RS485Receive_Temp(void)
 		}
 
 		RS485_CRC = N_CRC16(RS485REceive_Data, RS485REceive_Length - 2);
+		//-----------测试使用-------------
+		//RS485_CRC = 0xC101;
+		//-------------------------------
 		Serial.print("RS485_CRC = ");
 		Serial.println(RS485_CRC, HEX);
 
 		String STRRS485_CRC = String(RS485_CRC,HEX);//将int型16进制的RS485_CRC的值转换为string类型
-		//RS485REceive_Data[5] = 0x00;
-		//RS485REceive_Data[6] = 0x00;
+
+		/*int STRRS485_length = STRRS485_CRC.length();
+		Serial.print("STRRS485_length = ");
+		Serial.println(STRRS485_length);*/
+
+		//-----------测试使用-----------
+		//RS485REceive_Data[5] = 0xC1;
+		//RS485REceive_Data[6] = 0x01;
+		//-----------------------------
 		String strrs485_crc = String(RS485REceive_Data[5], HEX) + String(RS485REceive_Data[6], HEX);//将设备返回的啥转换为string类型
 
 		/*strrs485_crc = String(0, HEX) + String(0, HEX) + String(0, HEX) + String(0, HEX);
@@ -347,14 +357,56 @@ int RS485Receive_Temp(void)
 		Serial.println(strrs485_crc);
 		Serial.println("------------------");*/
 
+		//str.length()为str字符串的长度
+
 		//boolean startssWith(string)	开始
 		//Serial.println(str.startsWith("FE"));//判断字符串是否是以FE开始
 
+		//判断字符串中是否包含有其他的字符或者字符串
+		//indexOf(string)	indexOf(string,n)	string为需要查找的字符串，n为从第几位开始查
+		//从左到右匹配字符串，一旦遇到查找的目标，会立刻返回整型的数字
+		//这个数字代表了要查的字符串的位置编号，也叫作索引值
+		//如果什么都没有找到，返回-1
+
+		/*Serial.print("STRRS485_CRC = ");
+		Serial.println(STRRS485_CRC);
+		Serial.print("strrs485_crc = ");
+		Serial.println(strrs485_crc);*/
+
+		//这里是为了消除strrs485_crc第0位的0，假如为校验码为00C1，则RS485_CRC = C1，但是strrs485_crc = 0c1
+		//所以就将strrs485_crc第0位的0删除
 		if (strrs485_crc.startsWith("0"))
 		{
-			//Serial.println("000000000000000");
+			//Serial.println("strrs485_crc.startsWith(0)");
 			strrs485_crc.remove(0, 1);
 		}
+
+		//Serial.println(str.substring(0, 3));//从索引值0开始截取到3的字符串，不包含3的字符
+		//Serial.print("索引值：=");
+		//Serial.println(STRRS485_CRC.substring(2, 3));
+
+		//这里是为了消除STRRS485_CRC第2位的0，假如为校验码为C101，则STRRS485_CRC = C101，但是strrs485_crc = c11
+		//所以就将STRRS485_CRC第2位的0删除，改为c11
+		if (STRRS485_CRC.length() == 4)//字符串长度为4
+		{
+			if ((STRRS485_CRC.substring(2, 3)) == String(0))
+			{
+				//Serial.println("(STRRS485_CRC.substring(2, 3)) == String(0)");
+				STRRS485_CRC.remove(2, 1);
+			}
+		}
+		//这里是为了消除STRRS485_CRC第1位的0，假如为校验码为0101，则STRRS485_CRC = 101，但是strrs485_crc = 11
+		//所以就将STRRS485_CRC第1位的0删除，改为11
+		else if (STRRS485_CRC.length() == 3)//字符串长度为3
+		{
+			if ((STRRS485_CRC.substring(1, 2)) == String(0))
+			{
+				//Serial.println("(STRRS485_CRC.substring(1, 2)) == String(0)");
+				STRRS485_CRC.remove(1, 1);
+			}
+		}
+
+
 		//=======================测试所用的代码=====================================
 		//int count = 0;//用于计数，如果crc校验码出现了4个0，则为了不被while循环全部清除
 		//while ((strrs485_crc.startsWith("0")) && (count != 1))
@@ -2447,7 +2499,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 							Serial.println("LL超下量程");
 							Serial.println("0x7F00");
 							//RESP_HeatingJackets_7_Temp_LL		
-							//通道1温度的回执，LL表示超出下量程，请检查接线
+							//通道7温度的回执，LL表示超出下量程，请检查接线
 							Serial.println(String("RESP_HeatingJackets_7_Temp_LL"));//回执信息
 						}
 						else
@@ -2455,7 +2507,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 							Serial.print("Temp_Measure = ");
 							Serial.println(Temp_Measure);
 							//RESP_HeatingJackets_7_Temp_Value 	
-							//通道1温度的回执，Value = 溫度數值
+							//通道7温度的回执，Value = 溫度數值
 							Serial.println(String("RESP_HeatingJackets_7_Temp_" + String(Temp_Measure)));//回执信息
 						}
 					}
@@ -2463,7 +2515,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					{
 						Serial.println("crc校验未通过，无法得到数据");
 						//RESP_HeatingJackets_7_Temp_ERROR	
-						//通道1温度的回执，ERROR表示失败，请重新读取
+						//通道7温度的回执，ERROR表示失败，请重新读取
 						Serial.println(String("RESP_HeatingJackets_7_Temp_ERROR"));//回执信息
 					}
 				}
