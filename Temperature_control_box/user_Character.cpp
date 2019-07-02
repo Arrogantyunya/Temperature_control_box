@@ -59,7 +59,7 @@ char * Character_processing(int x)
 		Serial.print("cc = ");
 		Serial.println(cc);
 		Serial.print("dd = ");
-		Serial.println(dd);
+		Serial.println(dd,HEX);
 		Char_buffer[0] = String(cc);
 		Char_buffer[1] = String(dd);
 		long c = Char_buffer[0].toInt();

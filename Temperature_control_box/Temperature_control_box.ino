@@ -1,9 +1,9 @@
 // Visual Micro is in vMicro>General>Tutorial Mode
 // 
 /*
-    Name:       Temperature_control_box.ino
-    Created:	2019/6/12 星期三 13:40:35
-    Author:     刘家辉
+	Name:       Temperature_control_box.ino
+	Created:	2019/6/12 星期三 13:40:35
+	Author:     刘家辉
 */
 
 // Define User Types below here or use a .h file
@@ -303,9 +303,9 @@ int RS485Receive_information(void)
 			Serial.println(RS485REceive_Data[i], HEX);
 		}
 
-		RS485_CRC = N_CRC16(RS485REceive_Data, RS485REceive_Length-2);
+		RS485_CRC = N_CRC16(RS485REceive_Data, RS485REceive_Length - 2);
 		Serial.print("RS485_CRC = ");
-		Serial.println(RS485_CRC,HEX);
+		Serial.println(RS485_CRC, HEX);
 
 		RS485REceive_Length = 0;
 	}
@@ -340,7 +340,7 @@ int RS485Receive_Temp(void)
 		Serial.print("RS485_CRC = ");
 		Serial.println(RS485_CRC, HEX);
 
-		String STRRS485_CRC = String(RS485_CRC,HEX);//将int型16进制的RS485_CRC的值转换为string类型
+		String STRRS485_CRC = String(RS485_CRC, HEX);//将int型16进制的RS485_CRC的值转换为string类型
 
 		/*int STRRS485_length = STRRS485_CRC.length();
 		Serial.print("STRRS485_length = ");
@@ -435,7 +435,7 @@ int RS485Receive_Temp(void)
 			String strabc;
 			//char const *c = str.c_str();
 			strabc = String(RS485REceive_Data[3], HEX) + String(RS485REceive_Data[4], HEX);
-			
+
 			int strabc_length = strabc.length();
 			char shuzu2[4];
 			strabc.toCharArray(shuzu2, (strabc_length + 1));//只能处理到4个字符 
@@ -546,7 +546,7 @@ int RS485Receive_MacStatus(int x)
 			{
 				/*Serial.print(String("shuzu1") + "[ " + i + " ] =");
 				Serial.println(shuzu1[i]);*/
-				shu1zu[strbcd_length - (i+1)] = shuzu1[i];//倒序
+				shu1zu[strbcd_length - (i + 1)] = shuzu1[i];//倒序
 				//shuzu2[i] = shuzu1[i];
 				delay(5);
 			}
@@ -598,7 +598,7 @@ int USB_Serial_reception(void)
 		for (int i = 0; i < USBREceive_Length; i++)
 		{
 			//Serial.print(String("USBREceive_Data") + "[ " + i + " ] ");
-			Serial.print(USBREceive_Data[i],HEX);
+			Serial.print(USBREceive_Data[i], HEX);
 			Serial.print("");
 		}
 		Serial.println("");
@@ -635,16 +635,16 @@ void USB_Judge(unsigned char *USBREceive_Data)
 		USBREceive_Data[3] == '_')
 		//在这里判断进入了SET的命令
 	{
-		if (USBREceive_Data[4]  == 'M' && USBREceive_Data[5]  == 'a' && USBREceive_Data[6]  == 'c' &&
-			USBREceive_Data[7]  == 'V' && USBREceive_Data[8]  == 'a' && USBREceive_Data[9]  == 'l' &&
+		if (USBREceive_Data[4] == 'M' && USBREceive_Data[5] == 'a' && USBREceive_Data[6] == 'c' &&
+			USBREceive_Data[7] == 'V' && USBREceive_Data[8] == 'a' && USBREceive_Data[9] == 'l' &&
 			USBREceive_Data[10] == 'v' && USBREceive_Data[11] == 'e' && USBREceive_Data[12] == '_')
 			//在这里判断进入了继电器的设置
 		{
-			if ((USBREceive_Data[15] == 'O' && USBREceive_Data[16] == 'N')||(USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'N'))
+			if ((USBREceive_Data[15] == 'O' && USBREceive_Data[16] == 'N') || (USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'N'))
 				//在这里判断进入了ON的指令
 			{
-				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_' )
-				//在这里判断进入了1继电器开
+				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
+					//在这里判断进入了1继电器开
 				{
 					Serial.println("输入的指令为Y0_ON");
 
@@ -664,7 +664,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '_')
-				//在这里判断进入了2继电器开
+					//在这里判断进入了2继电器开
 				{
 					Serial.println("输入的指令为Y1_ON");
 
@@ -680,7 +680,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '3' && USBREceive_Data[14] == '_')
-				//在这里判断进入了3继电器开
+					//在这里判断进入了3继电器开
 				{
 					Serial.println("输入的指令为Y2_ON");
 
@@ -696,7 +696,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '4' && USBREceive_Data[14] == '_')
-				//在这里判断进入了4继电器开
+					//在这里判断进入了4继电器开
 				{
 					Serial.println("输入的指令为Y3_ON");
 
@@ -712,7 +712,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '5' && USBREceive_Data[14] == '_')
-				//在这里判断进入了5继电器开
+					//在这里判断进入了5继电器开
 				{
 					Serial.println("输入的指令为Y4_ON");
 
@@ -728,7 +728,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '6' && USBREceive_Data[14] == '_')
-				//在这里判断进入了6继电器开
+					//在这里判断进入了6继电器开
 				{
 					Serial.println("输入的指令为Y5_ON");
 
@@ -744,7 +744,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '7' && USBREceive_Data[14] == '_')
-				//在这里判断进入了7继电器开
+					//在这里判断进入了7继电器开
 				{
 					Serial.println("输入的指令为Y6_ON");
 
@@ -760,7 +760,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '8' && USBREceive_Data[14] == '_')
-				//在这里判断进入了8继电器开
+					//在这里判断进入了8继电器开
 				{
 					Serial.println("输入的指令为Y7_ON");
 
@@ -776,7 +776,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '9' && USBREceive_Data[14] == '_')
-				//在这里判断进入了9继电器开
+					//在这里判断进入了9继电器开
 				{
 					Serial.println("输入的指令为Y8_ON");
 
@@ -792,7 +792,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '0' && USBREceive_Data[15] == '_')
-				//在这里判断进入了10继电器开
+					//在这里判断进入了10继电器开
 				{
 					Serial.println("输入的指令为Y9_ON");
 
@@ -808,7 +808,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '1' && USBREceive_Data[15] == '_')
-				//在这里判断进入了11继电器开
+					//在这里判断进入了11继电器开
 				{
 					Serial.println("输入的指令为Y10_ON");
 
@@ -824,7 +824,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '2' && USBREceive_Data[15] == '_')
-				//在这里判断进入了12继电器开
+					//在这里判断进入了12继电器开
 				{
 					Serial.println("输入的指令为Y11_ON");
 
@@ -840,7 +840,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '3' && USBREceive_Data[15] == '_')
-				//在这里判断进入了13继电器开
+					//在这里判断进入了13继电器开
 				{
 					Serial.println("输入的指令为Y12_ON");
 
@@ -856,7 +856,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '4' && USBREceive_Data[15] == '_')
-				//在这里判断进入了14继电器开
+					//在这里判断进入了14继电器开
 				{
 					Serial.println("输入的指令为Y13_ON");
 
@@ -872,7 +872,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '5' && USBREceive_Data[15] == '_')
-				//在这里判断进入了15继电器开
+					//在这里判断进入了15继电器开
 				{
 					Serial.println("输入的指令为Y14_ON");
 
@@ -888,7 +888,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '6' && USBREceive_Data[15] == '_')
-				//在这里判断进入了16继电器开
+					//在这里判断进入了16继电器开
 				{
 					Serial.println("输入的指令为Y15_ON");
 
@@ -904,7 +904,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '7' && USBREceive_Data[15] == '_')
-				//在这里判断进入了17继电器开
+					//在这里判断进入了17继电器开
 				{
 					Serial.println("输入的指令为Y16_ON");
 
@@ -920,7 +920,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '8' && USBREceive_Data[15] == '_')
-				//在这里判断进入了18继电器开
+					//在这里判断进入了18继电器开
 				{
 					Serial.println("输入的指令为Y17_ON");
 
@@ -936,7 +936,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '9' && USBREceive_Data[15] == '_')
-				//在这里判断进入了19继电器开
+					//在这里判断进入了19继电器开
 				{
 					Serial.println("输入的指令为Y18_ON");
 
@@ -952,7 +952,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '0' && USBREceive_Data[15] == '_')
-				//在这里判断进入了20继电器开
+					//在这里判断进入了20继电器开
 				{
 					Serial.println("输入的指令为Y19_ON");
 
@@ -968,7 +968,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '1' && USBREceive_Data[15] == '_')
-				//在这里判断进入了21继电器开
+					//在这里判断进入了21继电器开
 				{
 					Serial.println("输入的指令为Y20_ON");
 
@@ -984,7 +984,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '2' && USBREceive_Data[15] == '_')
-				//在这里判断进入了22继电器开
+					//在这里判断进入了22继电器开
 				{
 					Serial.println("输入的指令为Y21_ON");
 
@@ -1000,7 +1000,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '3' && USBREceive_Data[15] == '_')
-				//在这里判断进入了23继电器开
+					//在这里判断进入了23继电器开
 				{
 					Serial.println("输入的指令为Y22_ON");
 
@@ -1016,7 +1016,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					}
 				}
 				else if (USBREceive_Data[13] == '2' && USBREceive_Data[14] == '4' && USBREceive_Data[15] == '_')
-				//在这里判断进入了24继电器开
+					//在这里判断进入了24继电器开
 				{
 					Serial.println("输入的指令为Y23_ON");
 
@@ -1035,7 +1035,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 
 			//在这里判断进入了OFF命令
 			else if ((USBREceive_Data[15] == 'O' && USBREceive_Data[16] == 'F' && USBREceive_Data[17] == 'F') ||
-					 (USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'F' && USBREceive_Data[18] == 'F'))
+				(USBREceive_Data[16] == 'O' && USBREceive_Data[17] == 'F' && USBREceive_Data[18] == 'F'))
 			{
 				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
 					//在这里判断进入了1继电器关
@@ -1426,20 +1426,20 @@ void USB_Judge(unsigned char *USBREceive_Data)
 		}
 		//判断进入了温控通道
 		else if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
-				 USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
-				 USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
-				 USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
-				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
+			USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
+			USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
+			USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
+			USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
 		{
 			//判断进入设置通道的温度值
 			if ((USBREceive_Data[21] == 'T'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'm'	&&
 				USBREceive_Data[24] == 'p'	&& USBREceive_Data[25] == 'D'	&& USBREceive_Data[26] == 'e'	&&
 				USBREceive_Data[27] == 's'	&& USBREceive_Data[28] == 'i'	&& USBREceive_Data[29] == 'r'	&&
-				USBREceive_Data[30] == 'e'	&& USBREceive_Data[31] == 'd'	&& USBREceive_Data[32] == '_')	||
+				USBREceive_Data[30] == 'e'	&& USBREceive_Data[31] == 'd'	&& USBREceive_Data[32] == '_') ||
 				(USBREceive_Data[22] == 'T'	&& USBREceive_Data[23] == 'e'	&& USBREceive_Data[24] == 'm'	&&
-				 USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'D'	&& USBREceive_Data[27] == 'e'	&&
-				 USBREceive_Data[28] == 's'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 'r'	&&
-				 USBREceive_Data[31] == 'e'	&& USBREceive_Data[32] == 'd'	&& USBREceive_Data[33] == '_'))
+					USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'D'	&& USBREceive_Data[27] == 'e'	&&
+					USBREceive_Data[28] == 's'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 'r'	&&
+					USBREceive_Data[31] == 'e'	&& USBREceive_Data[32] == 'd'	&& USBREceive_Data[33] == '_'))
 			{
 				//判断进入了1通道的温度期望设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
@@ -1448,7 +1448,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Serial.print("TempDesired = ");//输出TempDesired
 					Serial.println(TempDesired);
 
-					ptrc  = Character_processing(TempDesired);//输出TempDesired
+					ptrc = Character_processing(TempDesired);//输出TempDesired
 
 					Temp3_1[4] = *(ptrc + 0);
 					/*Serial.print("Temp3_1[4] = ");
@@ -1456,7 +1456,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					Temp3_1[5] = *(ptrc + 1);
 					/*Serial.print("Temp3_1[5] = ");
 					Serial.println(Temp3_1[5]);*/
-					
+
 					modbus_CRC = N_CRC16(Temp3_1, length);//得到modbus_CRC的值
 					Temp3_1[6] = modbus_CRC >> 8;
 					Temp3_1[7] = modbus_CRC;
@@ -1876,10 +1876,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//判断进入设置上限值
 			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
-					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'U'	&& USBREceive_Data[24] == 'p'	&&
-					 USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
-					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
-					 USBREceive_Data[31] == '_')
+				USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'U'	&& USBREceive_Data[24] == 'p'	&&
+				USBREceive_Data[25] == 'p'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
+				USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
+				USBREceive_Data[31] == '_')
 			{
 				TempUppLimit = ((USBREceive_Data[32] - 48) * 1000) + ((USBREceive_Data[33] - 48) * 100) + ((USBREceive_Data[34] - 48) * 10) + (USBREceive_Data[35] - 48);
 				Serial.print("TempUppLimit = ");
@@ -1887,10 +1887,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//判断进入设置下限值
 			else if (USBREceive_Data[19] == 'T'	&& USBREceive_Data[20] == 'e'	&& USBREceive_Data[21] == 'm'	&&
-					 USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'L'	&& USBREceive_Data[24] == 'o'	&&
-					 USBREceive_Data[25] == 'w'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
-					 USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
-					 USBREceive_Data[31] == '_')
+				USBREceive_Data[22] == 'p'	&& USBREceive_Data[23] == 'L'	&& USBREceive_Data[24] == 'o'	&&
+				USBREceive_Data[25] == 'w'	&& USBREceive_Data[26] == 'L'	&& USBREceive_Data[27] == 'i'	&&
+				USBREceive_Data[28] == 'm'	&& USBREceive_Data[29] == 'i'	&& USBREceive_Data[30] == 't'	&&
+				USBREceive_Data[31] == '_')
 			{
 				TempLowLimit = ((USBREceive_Data[32] - 48) * 1000) + ((USBREceive_Data[33] - 48) * 100) + ((USBREceive_Data[34] - 48) * 10) + (USBREceive_Data[35] - 48);
 				Serial.print("TempLowLimit = ");
@@ -1898,8 +1898,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//判断进入设置加热模式
 			else if (USBREceive_Data[21] == 'H'	&& USBREceive_Data[22] == 'e'	&& USBREceive_Data[23] == 'a'	&&
-					 USBREceive_Data[24] == 't'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
-					 USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
+				USBREceive_Data[24] == 't'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
+				USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
 			{
 				//判断进入了1通道加热的设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
@@ -1914,8 +1914,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//判断进入设置制冷模式
 			else if (USBREceive_Data[21] == 'C'	&& USBREceive_Data[22] == 'o'	&& USBREceive_Data[23] == 'o'	&&
-					 USBREceive_Data[24] == 'l'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
-					 USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
+				USBREceive_Data[24] == 'l'	&& USBREceive_Data[25] == 'i'	&& USBREceive_Data[26] == 'n'	&&
+				USBREceive_Data[27] == 'g'	&& USBREceive_Data[28] == '_')
 			{
 				//判断进入了1通道制冷的设定
 				if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
@@ -1931,7 +1931,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 		}
 		//这里判断进入了MFC的设置
 		else if (USBREceive_Data[4] == 'M'	&& USBREceive_Data[5] == 'F'	&& USBREceive_Data[6] == 'C'	&&
-				 USBREceive_Data[7] == '_')
+			USBREceive_Data[7] == '_')
 		{
 			//这里判断进入了MFC_OPEN
 			if (USBREceive_Data[8] == 'O'	&& USBREceive_Data[9] == 'p'	&& USBREceive_Data[10] == 'e'	&&
@@ -1944,7 +1944,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断进入了MFC_close
 			else if (USBREceive_Data[8] == 'C'	&& USBREceive_Data[9] == 'l'	&& USBREceive_Data[10] == 'o'	&&
-					 USBREceive_Data[11] == 's'	&& USBREceive_Data[12] == 'e')
+				USBREceive_Data[11] == 's'	&& USBREceive_Data[12] == 'e')
 			{
 				if (USBREceive_Data[13] == '1' && USBREceive_Data[14] == '_')
 				{
@@ -1963,7 +1963,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 	}
 	//这里判断进入了GET命令
 	else if (USBREceive_Data[0] == 'G' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&
-			 USBREceive_Data[3] == '_')
+		USBREceive_Data[3] == '_')
 	{
 		//在这里判断进入了继电器的查询
 		if (USBREceive_Data[4] == 'M'	&& USBREceive_Data[5] == 'a' && USBREceive_Data[6] == 'c' &&
@@ -2005,8 +2005,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为2继电器的查询
 			else if (USBREceive_Data[13] == '2'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器2当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2034,8 +2034,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为3继电器的查询
 			else if (USBREceive_Data[13] == '3'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器3当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2063,8 +2063,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为4继电器的查询
 			else if (USBREceive_Data[13] == '4'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器4当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2092,8 +2092,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为5继电器的查询
 			else if (USBREceive_Data[13] == '5'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器5当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2121,8 +2121,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为6继电器的查询
 			else if (USBREceive_Data[13] == '6'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器6当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2150,8 +2150,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为7继电器的查询
 			else if (USBREceive_Data[13] == '7'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器7当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2179,8 +2179,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为8继电器的查询
 			else if (USBREceive_Data[13] == '8'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器8当前的状态");
 				modbus_CRC = N_CRC16(getY1, length);//得到modbus_CRC的值
@@ -2208,8 +2208,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为9继电器的查询
 			else if (USBREceive_Data[13] == '9'	&& USBREceive_Data[14] == '_'	&& USBREceive_Data[15] == 'S'	&&
-					 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
-					 USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
+				USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 'a'	&& USBREceive_Data[18] == 't'	&&
+				USBREceive_Data[19] == 'u'	&& USBREceive_Data[20] == 's')
 			{
 				Serial.println("读取继电器9当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2236,9 +2236,9 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				//Serial.println(MacStatus)
 			}
 			//这里判断为10继电器的查询
-			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '0'	&&	USBREceive_Data[15] == '_'	&& 
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&& 
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '0'	&&	USBREceive_Data[15] == '_'	&&
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器10当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2266,8 +2266,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为11继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '1'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器11当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2295,8 +2295,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为12继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '2'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器12当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2324,8 +2324,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为13继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '3'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器13当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2353,8 +2353,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为14继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '4'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器14当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2382,8 +2382,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为15继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '5'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器15当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2411,8 +2411,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为16继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '6'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器16当前的状态");
 				modbus_CRC = N_CRC16(getY2_1, length);//得到modbus_CRC的值
@@ -2440,8 +2440,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为17继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '7'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器17当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2469,8 +2469,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为18继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '8'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器18当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2498,8 +2498,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为19继电器的查询
 			else if (USBREceive_Data[13] == '1'	&&	USBREceive_Data[14] == '9'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器19当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2527,8 +2527,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为20继电器的查询
 			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '0'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器20当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2556,8 +2556,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为21继电器的查询
 			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '1'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器21当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2585,8 +2585,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为22继电器的查询
 			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '2'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器22当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2614,8 +2614,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为23继电器的查询
 			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '3'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器23当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2643,8 +2643,8 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//这里判断为24继电器的查询
 			else if (USBREceive_Data[13] == '2'	&&	USBREceive_Data[14] == '4'	&&	USBREceive_Data[15] == '_'	&&
-					 USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
-					 USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
+				USBREceive_Data[16] == 'S'	&&	USBREceive_Data[17] == 't'	&&	USBREceive_Data[18] == 'a'	&&
+				USBREceive_Data[19] == 't'	&&	USBREceive_Data[20] == 'u'	&&	USBREceive_Data[21] == 's')
 			{
 				Serial.println("读取继电器24当前的状态");
 				modbus_CRC = N_CRC16(getY2_2, length);//得到modbus_CRC的值
@@ -2673,10 +2673,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 		}
 		//这里判断进入了温度通道
 		else if (USBREceive_Data[4] == 'H'	&& USBREceive_Data[5] == 'e'	&& USBREceive_Data[6] == 'a'	&&
-				 USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
-				 USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
-				 USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
-				 USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
+			USBREceive_Data[7] == 't'	&& USBREceive_Data[8] == 'i'	&& USBREceive_Data[9] == 'n'	&&
+			USBREceive_Data[10] == 'g'	&& USBREceive_Data[11] == 'J'	&& USBREceive_Data[12] == 'a'	&&
+			USBREceive_Data[13] == 'c'	&& USBREceive_Data[14] == 'k'	&& USBREceive_Data[15] == 'e'	&&
+			USBREceive_Data[16] == 't'	&& USBREceive_Data[17] == 's'	&& USBREceive_Data[18] == '_')
 		{
 			//这里判断进入查询温度1通道
 			if (USBREceive_Data[19] == '1' && USBREceive_Data[20] == '_')
@@ -2689,7 +2689,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					modbus_CRC = N_CRC16(getT3_1, length);//得到modbus_CRC的值
 					getT3_1[6] = modbus_CRC >> 8;
 					getT3_1[7] = modbus_CRC;
-					Serial2.write(getT3_1,8);//发送温度1通道的查询指令
+					Serial2.write(getT3_1, 8);//发送温度1通道的查询指令
 					Temp_Measure = RS485Receive_Temp();
 					if (Temp_Measure != -1)
 					{
@@ -2715,7 +2715,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 							Serial.println(Temp_Measure);
 							//RESP_HeatingJackets_1_Temp_Value 	
 							//通道1温度的回执，Value = 溫度數值
-							Serial.println(String("RESP_HeatingJackets_1_Temp_"+String(Temp_Measure)));//回执信息
+							Serial.println(String("RESP_HeatingJackets_1_Temp_" + String(Temp_Measure)));//回执信息
 						}
 					}
 					else
@@ -3449,7 +3449,7 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 		}
 		else if (USBREceive_Data[4] == 'M'	&& USBREceive_Data[5] == 'F'	&& USBREceive_Data[6] == 'C'	&&
-				 USBREceive_Data[7] == '_')
+			USBREceive_Data[7] == '_')
 		{
 			//进入了GAS流量查询
 			if (USBREceive_Data[10] == 'G'	&& USBREceive_Data[11] == 'A'	&& USBREceive_Data[12] == 's')
@@ -3458,9 +3458,9 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			}
 			//进入了Status状态查询
 			else if (USBREceive_Data[10] == 'S'	&& USBREceive_Data[11] == 't'	&& USBREceive_Data[12] == 'a' &&
-					 USBREceive_Data[13] == 't' && USBREceive_Data[14] == 'u'	&& USBREceive_Data[15] == 's')
+				USBREceive_Data[13] == 't' && USBREceive_Data[14] == 'u'	&& USBREceive_Data[15] == 's')
 			{
-				
+
 			}
 		}
 	}
