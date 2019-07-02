@@ -69,6 +69,11 @@ void Initialization()//初始化函数
     //digitalWrite(KCZJ1,HIGH);
     //digitalWrite(KCZJ2,HIGH);
 
+	//模拟输入初始化
+	pinMode(V1, INPUT_ANALOG);
+	pinMode(V2, INPUT_ANALOG);
+	pinMode(V3, INPUT_ANALOG);
+
     //LED初始化
     digitalWrite(LED1,LOW);
     digitalWrite(LED2,LOW);

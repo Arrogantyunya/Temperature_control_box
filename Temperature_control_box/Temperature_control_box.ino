@@ -282,6 +282,14 @@ void loop()
 	RS485Receive_information();	//RS485的接收函数
 }
 
+void Analog_input1(void)
+{
+	float analogRead1 = analogRead(V1);
+	float ar = (float(analogRead1 / 1475)) * 13;
+	Serial.println(String("ar = ") + ar + String("V"));
+	Serial.println("---------------");
+}
+
 int RS485Receive_information(void)
 {
 	RS485REceive_Length = 0;
@@ -629,6 +637,12 @@ void USB_Judge(unsigned char *USBREceive_Data)
 
 	//	Serial2.write(Temp4_2, 8);//发送Temp4_2
 	//}
+
+	//这是测试模拟输入的代码
+	if (USBREceive_Data[0] == 'V' && USBREceive_Data[1] == '1')
+	{
+		Analog_input1();
+	}
 
 	//========================================================================================================
 	if (USBREceive_Data[0] == 'S' && USBREceive_Data[1] == 'E' && USBREceive_Data[2] == 'T' &&

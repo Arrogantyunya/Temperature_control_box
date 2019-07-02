@@ -38,9 +38,9 @@
 #define K1			PA4		//按键1
 #define K2			PA5		//按键2
 
-#define I3			PA6		//
-#define I2			PA7		//
-#define I1			PC4		//
+#define V3			PA6		//模拟输入3,V
+#define V2			PA7		//模拟输入2,V
+#define V1			PC4		//模拟输入1,V
 
 #define BAT_V		PB1		//
 #define BOOT1		PB2		//
