@@ -280,14 +280,20 @@ void loop()
 
 	USB_Serial_reception();		//USB串口接收函数
 	RS485Receive_information();	//RS485的接收函数
+	Analog_input1();
 }
 
 void Analog_input1(void)
 {
-	float analogRead1 = analogRead(V1);
-	float ar = (float(analogRead1 / 1475)) * 13;
-	Serial.println(String("ar = ") + ar + String("V"));
+	int analogRead1 = analogRead(V1);
+	//float ar = (float(analogRead1 / 1475)) * 13;
+	Serial.println(analogRead1);
+	float ar = (analogRead1 * 0.8056)*11;
+	Serial.println(String("ar = ") + ar + String("mV"));
+	float Flow_Value = (ar - 0.68)*(20);
+	Serial.println(String("Flow_Value = ") + Flow_Value + String("sccm"));
 	Serial.println("---------------");
+	delay(500);
 }
 
 int RS485Receive_information(void)
