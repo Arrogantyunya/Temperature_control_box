@@ -24,8 +24,8 @@ char * pttarr = NULL;
 char * Character_processing(int x)
 {
 	pttarr = inttohex2(x);//对传入的int型10进制x转换成char型的HEX的字符
-	Serial.print("inttohex2(x) = ");
-	Serial.println(inttohex2(x));
+	/*Serial.print("inttohex2(x) = ");
+	Serial.println(inttohex2(x));*/
 
 	//1位的16进制数
 	if (x >= 0 && x < 16)
@@ -33,8 +33,8 @@ char * Character_processing(int x)
 		for (size_t i = 0; i < 1; i++)
 		{
 			decm[i] = chartoint(*(pttarr + i));
-			Serial.print(String("decm[ ") + i + " ]: ");
-			Serial.println(decm[i]);
+			/*Serial.print(String("decm[ ") + i + " ]: ");
+			Serial.println(decm[i]);*/
 		}
 		cc = 0x00;
 		dd = decm[0];
@@ -51,15 +51,15 @@ char * Character_processing(int x)
 		for (size_t i = 0; i < 2; i++)
 		{
 			decm[i] = chartoint(*(pttarr + i));
-			Serial.print(String("decm[ ") + i + " ]: ");
-			Serial.println(decm[i]);
+			/*Serial.print(String("decm[ ") + i + " ]: ");
+			Serial.println(decm[i]);*/
 		}
 		cc = 0x00;
 		dd = decm[0] * 16 + decm[1];
-		Serial.print("cc = ");
+		/*Serial.print("cc = ");
 		Serial.println(cc);
 		Serial.print("dd = ");
-		Serial.println(dd,HEX);
+		Serial.println(dd,HEX);*/
 		Char_buffer[0] = String(cc);
 		Char_buffer[1] = String(dd);
 		long c = Char_buffer[0].toInt();
@@ -73,15 +73,15 @@ char * Character_processing(int x)
 		for (size_t i = 0; i < 3; i++)
 		{
 			decm[i] = chartoint(*(pttarr + i));
-			Serial.print(String("decm[ ") + i + " ]: ");
-			Serial.println(decm[i]);
+			/*Serial.print(String("decm[ ") + i + " ]: ");
+			Serial.println(decm[i]);*/
 		}
 		cc = decm[0];
 		dd = decm[1] * 16 + decm[2];
-		Serial.print("cc = ");
+		/*Serial.print("cc = ");
 		Serial.println(cc);
 		Serial.print("dd = ");
-		Serial.println(dd);
+		Serial.println(dd);*/
 		Char_buffer[0] = String(cc);
 		Char_buffer[1] = String(dd);
 		long c = Char_buffer[0].toInt();
@@ -95,15 +95,15 @@ char * Character_processing(int x)
 		for (size_t i = 0; i < 4; i++)
 		{
 			decm[i] = chartoint(*(pttarr + i));
-			Serial.print(String("decm[ ") + i + " ]: ");
-			Serial.println(decm[i]);
+			/*Serial.print(String("decm[ ") + i + " ]: ");
+			Serial.println(decm[i]);*/
 		}
 		cc = decm[0] * 16 + decm[1];
 		dd = decm[2] * 16 + decm[3];
-		Serial.print("cc = ");
+		/*Serial.print("cc = ");
 		Serial.println(cc);
 		Serial.print("dd = ");
-		Serial.println(dd);
+		Serial.println(dd);*/
 		Char_buffer[0] = String(cc);
 		Char_buffer[1] = String(dd);
 		long c = Char_buffer[0].toInt();
@@ -119,17 +119,17 @@ int chartoint(char nn)
 	int b;
 	if (('0' <= nn) && ('9' >= nn))
 	{
-		Serial.println("[0-9]");
+		//Serial.println("[0-9]");
 		b = nn - '0';//这里的出10进制的整型
-		Serial.print("b = ");
-		Serial.println(b);
+		/*Serial.print("b = ");
+		Serial.println(b);*/
 	}
 	else if (('a' <= nn) && ('f' >= nn))
 	{
-		Serial.println("[a-f]");
+		//Serial.println("[a-f]");
 		b = nn - 'W';//这里得出十进制的整型
-		Serial.print("b = ");
-		Serial.println(b);
+		/*Serial.print("b = ");
+		Serial.println(b);*/
 	}
 	return b;
 }

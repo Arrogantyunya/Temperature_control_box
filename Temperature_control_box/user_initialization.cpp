@@ -88,5 +88,5 @@ void Initialization()//初始化函数
 	digitalWrite(V12_PWR,HIGH);//12V电源使能
 
 	delay(1000);
-	Serial.println("初始化完成");
+	//Serial.println("初始化完成");
 }
