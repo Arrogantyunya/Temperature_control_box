@@ -1962,8 +1962,12 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			{
 				if (USBREceive_Data[8] == '1' && USBREceive_Data[9] == '_')
 				{
-					
-					Serial.println(String("RESP_MFC_1_Open"));//回执信息
+					digitalWrite(LED1, HIGH);//控制开阀
+					digitalWrite(LED2, LOW);
+					if (digitalRead(LED1) == HIGH && digitalRead(LED2) == LOW)
+					{
+						Serial.println(String("RESP_MFC_1_Open"));//回执信息
+					}
 				}
 				else if (USBREceive_Data[8] == '2' && USBREceive_Data[9] == '_')
 				{
@@ -1982,8 +1986,12 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			{
 				if (USBREceive_Data[8] == '1' && USBREceive_Data[9] == '_')
 				{
-
-					Serial.println(String("RESP_MFC_1_Close"));//回执信息
+					digitalWrite(LED1, LOW);
+					digitalWrite(LED2, HIGH);//控制关阀
+					if (digitalRead(LED1) == LOW && digitalRead(LED2) == HIGH)
+					{
+						Serial.println(String("RESP_MFC_1_Close"));//回执信息
+					}
 				}
 				else if (USBREceive_Data[8] == '2' && USBREceive_Data[9] == '_')
 				{
