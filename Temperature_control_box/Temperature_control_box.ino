@@ -176,6 +176,10 @@ static unsigned char getT4_6[8] = { 0x04,0x03,0x10,0x06,0x00,0x01 };
 static unsigned char getT4_7[8] = { 0x04,0x03,0x10,0x07,0x00,0x01 };
 static unsigned char getT4_8[8] = { 0x04,0x03,0x10,0x08,0x00,0x01 };
 
+//这是控制485模拟输出
+static unsigned char AnalogV_output1[8] = { 0x05,0x06,0x01,0x00 };
+static unsigned char AnalogV_output2[8] = { 0x05,0x06,0x01,0x01 };
+
 
 String str_usb;
 
@@ -195,7 +199,7 @@ static int TempDesired = 0;		//温度期望值
 static int TempUppLimit = 0;	//温度上限值
 static int TempLowLimit = 0;	//温度下限值
 static int Temp_Measure = 0;	//温度测量值
-static int FlowDesired = 0;		//流量期望值
+static long FlowDesired = 0;		//流量期望值
 static float Flow_Measure = 0;	//流量测量值
 static float flow_measure[5];	//流量测量值数组
 static char * ptrc = NULL;
@@ -313,8 +317,8 @@ int RS485Receive_information(void)
 	{
 		/*Serial.println("");
 		Serial.print("RS485REceive_Length = ");
-		Serial.println(RS485REceive_Length);*/
-		/*for (int i = 0; i < RS485REceive_Length; i++)
+		Serial.println(RS485REceive_Length);
+		for (int i = 0; i < RS485REceive_Length; i++)
 		{
 			Serial.print(String("RS485REceive_Data") + "[ " + i + " ] =");
 			Serial.println(RS485REceive_Data[i], HEX);
@@ -591,7 +595,6 @@ int RS485Receive_MacStatus(int x)
 	}
 	return -1;
 }
-
 
 int LORAReceive_information(void)
 {
@@ -2012,32 +2015,31 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				{
 
 					FlowDesired = ((USBREceive_Data[14] - 48) * 100000) + ((USBREceive_Data[15] - 48) * 10000) + ((USBREceive_Data[16] - 48) * 1000) + 
-						((USBREceive_Data[17] - 48) * 100);	+((USBREceive_Data[18] - 48) * 10) + (USBREceive_Data[19] - 48);
-					Serial.print("FlowDesired = ");//输出FlowDesired
-					Serial.println(FlowDesired);
-					int flow_V = (FlowDesired / 200000) * 5000;
-					Serial.print("flow_V = ");//输出FlowDesired
-					Serial.println(flow_V);
-					ptrc = Character_processing(FlowDesired);//输出FlowDesired
+								  ((USBREceive_Data[17] - 48) * 100)	+ ((USBREceive_Data[18] - 48) * 10) +     (USBREceive_Data[19] - 48);
+					//Serial.print("FlowDesired = ");//输出FlowDesired
+					//Serial.println(FlowDesired);
+					int flow_V = (FlowDesired*1024) / 50000;//((FlowDesired / 200000) * 5000)*(4096/5000)
+					//Serial.print("flow_V = ");//输出FlowDesired
+					//Serial.println(flow_V);
+					ptrc = Character_processing(flow_V);//输出FlowDesired
 
-					//Temp3_1[4] = *(ptrc + 0);
-					///*Serial.print("Temp3_1[4] = ");
-					//Serial.println(Temp3_1[4]);*/
-					//Temp3_1[5] = *(ptrc + 1);
-					///*Serial.print("Temp3_1[5] = ");
-					//Serial.println(Temp3_1[5]);*/
+					AnalogV_output1[4] = *(ptrc + 0);
+					/*Serial.print("AnalogV_output1[4] = ");
+					Serial.println(AnalogV_output1[4],HEX);*/
+					AnalogV_output1[5] = *(ptrc + 1);
+					/*Serial.print("AnalogV_output1[5] = ");
+					Serial.println(AnalogV_output1[5],HEX);*/
 
-					//modbus_CRC = N_CRC16(Temp3_1, length);//得到modbus_CRC的值
-					//Temp3_1[6] = modbus_CRC >> 8;
-					//Temp3_1[7] = modbus_CRC;
+					modbus_CRC = N_CRC16(AnalogV_output1, length);//得到modbus_CRC的值
+					AnalogV_output1[6] = modbus_CRC >> 8;
+					AnalogV_output1[7] = modbus_CRC;
 
-					//Serial2.write(Temp3_1, 8);//发送Temp3_1
+					Serial2.write(AnalogV_output1, 8);//发送AnalogV_output1
 
-					//if (modbus_CRC == RS485Receive_information())
-					//{
-					//	Serial.println(String("RESP_MFC_1_GAS_") + String(FlowDesired));//回执信息
-					//}
-					Serial.println(String("RESP_MFC_1_GAS_") + String(FlowDesired));//回执信息
+					if (RS485Receive_information() == modbus_CRC)
+					{
+						Serial.println(String("RESP_MFC_1_GAS_") + String(FlowDesired));//回执信息
+					}
 				}
 			}
 		}
