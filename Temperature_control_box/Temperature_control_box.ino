@@ -1965,9 +1965,9 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			{
 				if (USBREceive_Data[8] == '1' && USBREceive_Data[9] == '_')
 				{
-					digitalWrite(LED1, HIGH);//控制开阀
-					digitalWrite(LED2, LOW);
-					if (digitalRead(LED1) == HIGH && digitalRead(LED2) == LOW)
+					digitalWrite(LED1, LOW);//控制开阀
+					digitalWrite(LED2, HIGH);
+					if (digitalRead(LED1) == LOW && digitalRead(LED2) == HIGH)
 					{
 						Serial.println(String("RESP_MFC_1_Open"));//回执信息
 					}
@@ -1989,9 +1989,9 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			{
 				if (USBREceive_Data[8] == '1' && USBREceive_Data[9] == '_')
 				{
-					digitalWrite(LED1, LOW);
-					digitalWrite(LED2, HIGH);//控制关阀
-					if (digitalRead(LED1) == LOW && digitalRead(LED2) == HIGH)
+					digitalWrite(LED1, HIGH);
+					digitalWrite(LED2, LOW);//控制关阀
+					if (digitalRead(LED1) == HIGH && digitalRead(LED2) == LOW)
 					{
 						Serial.println(String("RESP_MFC_1_Close"));//回执信息
 					}
@@ -2039,6 +2039,10 @@ void USB_Judge(unsigned char *USBREceive_Data)
 					if (RS485Receive_information() == modbus_CRC)
 					{
 						Serial.println(String("RESP_MFC_1_GAS_") + String(FlowDesired));//回执信息
+					}
+					for (size_t i = 0; i < 19; i++)
+					{
+						USBREceive_Data[i] = 0;//将数值清零
 					}
 				}
 			}
@@ -3539,9 +3543,18 @@ void USB_Judge(unsigned char *USBREceive_Data)
 			{
 				if (USBREceive_Data[8] == '1'	&& USBREceive_Data[9] == '_')
 				{
+					//Serial.println((analogRead(V1)*0.8056));//66.86
 					for (size_t i = 0; i < 5; i++)
 					{
-						flow_measure[i] = ((analogRead(V1)*0.8056) * 11) / 25;//连续采集5次，每次间隔10ms
+						flow_measure[i] = (((analogRead(V1)*0.8056)-68) * 11) / 25;//连续采集5次，每次间隔10ms
+						if (flow_measure[i] >= 0)
+						{
+
+						}
+						else
+						{
+							flow_measure[i] = 0;
+						}
 						delay(10);
 					}
 					Flow_Measure = (flow_measure[0] + flow_measure[1] + flow_measure[2] + flow_measure[3] + flow_measure[4]) / 5;//取平均值
@@ -3559,10 +3572,18 @@ void USB_Judge(unsigned char *USBREceive_Data)
 				}
 				else if (USBREceive_Data[8] == '2'	&& USBREceive_Data[9] == '_')
 				{
-					Flow_Measure = ((analogRead(V1)*0.8056) * 11) / 25;
+					for (size_t i = 0; i < 5; i++)
+					{
+						flow_measure[i] = ((analogRead(V1)*0.8056) * 11) / 25;//连续采集5次，每次间隔10ms
+						delay(10);
+					}
+					Flow_Measure = (flow_measure[0] + flow_measure[1] + flow_measure[2] + flow_measure[3] + flow_measure[4]) / 5;//取平均值
+					long flow_shuchu = Flow_Measure * 1000;
+					//flow_measure	Flow_Measure
 					if (Flow_Measure >= 0 && Flow_Measure <= 250)
 					{
-						Serial.println(String("RESP_MFC_1_GAS_") + String(Flow_Measure));//回执信息
+						//Serial.println(Flow_Measure);
+						Serial.println(String("RESP_MFC_1_GAS_") + String(flow_shuchu));//回执信息
 					}
 					else
 					{
