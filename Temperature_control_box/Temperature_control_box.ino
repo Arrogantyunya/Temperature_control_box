@@ -19,13 +19,13 @@
 
 // The setup() function runs once each time the micro-controller starts
 
-#include "user_Character.h"
-#include "user_test.h"
-#include "user_HEXtoDEC.h"
-#include "user_DECtoHEX.h"
+#include "user_Character.h"			//
+#include "user_test.h"				//
+#include "user_HEXtoDEC.h"			//
+#include "user_DECtoHEX.h"			//
 #include "user_initialization.h"	//初始化函数
-#include "MODBUS_RTU_CRC16.h"	//modbusCRC16校验的函数
-#include "user_DECtoHEX.h"
+#include "MODBUS_RTU_CRC16.h"		//modbusCRC16校验的函数
+#include "user_DECtoHEX.h"			//
 //#include "user_Binary_conversion.h"//进制转换函数，这个库有问题，添加了导致程序下载不了
 
 //这里是从机设备地址为1的8路继电器
@@ -207,7 +207,7 @@ static char * ptrc = NULL;
 
 //相关函数的定义
 int RS485Receive_information();					//RS485接收函数
-int LORAReceive_information();					//RS485接收函数
+int LORAReceive_information();					//LORA接收函数
 int USB_Serial_reception();						//USB串口的接收函数
 void USB_Judge(unsigned char *USBREceive_Data);	//USB判断函数
 
